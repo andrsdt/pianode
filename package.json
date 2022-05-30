@@ -1,0 +1,21 @@
+{
+  "name": "piano-three-js",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@tweakpane/core": "^1.0.9",
+    "@tweakpane/plugin-essentials": "^0.1.4",
+    "@types/three": "^0.140.0",
+    "tweakpane": "^3.0.8",
+    "typescript": "^4.5.4",
+    "vite": "^2.9.9"
+  },
+  "dependencies": {
+    "three": "^0.141.0"
+  }
+}
