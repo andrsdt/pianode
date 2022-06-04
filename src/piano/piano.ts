@@ -13,6 +13,7 @@ class Piano {
     constructor() {
         this.keys = [];
         this.model = new Group();
+        this.model.translateZ(-80)
         this.whiteKeyOffset = 0;
 
         let notes = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
@@ -49,5 +50,3 @@ class Piano {
 }
 
 export const piano = new Piano();
-
-

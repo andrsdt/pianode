@@ -10,12 +10,17 @@
   "devDependencies": {
     "@tweakpane/core": "^1.0.9",
     "@tweakpane/plugin-essentials": "^0.1.4",
+    "@types/node": "^17.0.39",
     "@types/three": "^0.140.0",
     "tweakpane": "^3.0.8",
     "typescript": "^4.5.4",
     "vite": "^2.9.9"
   },
   "dependencies": {
-    "three": "^0.141.0"
+    "@tonejs/piano": "^0.2.1",
+    "events": "^3.3.0",
+    "three": "^0.141.0",
+    "tone": "^14.7.77",
+    "webmidi": "^2.5.1"
   }
 }

@@ -7,13 +7,15 @@ export const sizes = {
     height: window.innerHeight
 }
 
-export const camera = new PerspectiveCamera(
+const perspectiveCamera = new PerspectiveCamera(
     VERTICAL_FIELD_OF_VIEW,
     sizes.width / sizes.height,
 )
 
-camera.position.set(-60, 80, 0)
+export const camera = perspectiveCamera;
+camera.position.set(-80, 100, 30);
+
 window.addEventListener('resize', () => {
-    camera.aspect = sizes.width / sizes.height
+    // camera.aspect = sizes.width / sizes.height
     camera.updateProjectionMatrix()
 })
