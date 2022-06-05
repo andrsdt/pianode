@@ -1,4 +1,5 @@
-import { PerspectiveCamera } from "three";
+import { OrthographicCamera, PerspectiveCamera } from "three";
+import { piano } from "../piano/model/piano";
 
 const VERTICAL_FIELD_OF_VIEW = 45; // Normal
 
@@ -7,15 +8,38 @@ export const sizes = {
     height: window.innerHeight
 }
 
-const perspectiveCamera = new PerspectiveCamera(
-    VERTICAL_FIELD_OF_VIEW,
-    sizes.width / sizes.height,
-)
+const aspectRatio = sizes.width / sizes.height;
 
-export const camera = perspectiveCamera;
-camera.position.set(-80, 100, 30);
+const perspectiveCameraTop = new PerspectiveCamera(
+    VERTICAL_FIELD_OF_VIEW,
+    aspectRatio
+)
+perspectiveCameraTop.position.set(0, 90, 60)
+perspectiveCameraTop.lookAt(piano.getCenterPosition());
+perspectiveCameraTop.rotateZ(Math.PI / 2)
+
+const perspectiveCameraTilted = new PerspectiveCamera(
+    VERTICAL_FIELD_OF_VIEW,
+    aspectRatio
+)
+perspectiveCameraTilted.position.set(-70, 60, 60)
+perspectiveCameraTilted.rotation.set(-Math.PI / 2, -.9, -Math.PI / 2)
+
+const viewSize = 90;
+const ortographicCamera = new OrthographicCamera(
+    -aspectRatio * viewSize / 2,
+    aspectRatio * viewSize / 2,
+    viewSize / 2,
+    -viewSize / 2,
+)
+ortographicCamera.position.set(0, 40, 60)
+ortographicCamera.lookAt(piano.getCenterPosition());
+ortographicCamera.rotateZ(Math.PI / 2)
+
+const cameras = { perspectiveCameraTop, perspectiveCameraTilted, ortographicCamera }
+export const camera = cameras.perspectiveCameraTilted
 
 window.addEventListener('resize', () => {
-    // camera.aspect = sizes.width / sizes.height
+    camera.aspect = sizes.width / sizes.height
     camera.updateProjectionMatrix()
 })
