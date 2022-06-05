@@ -10,5 +10,6 @@ export class BlackKey extends PianoKey {
         super(note, octave);
         this.model.geometry = new BoxGeometry(BLACK_KEY_X_SIZE, BLACK_KEY_Y_SIZE, BLACK_KEY_Z_SIZE);
         this.model.material = new MeshStandardMaterial({ color: '#222' });
+        this.baseY = 1;
     }
 }
