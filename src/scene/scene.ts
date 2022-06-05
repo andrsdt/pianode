@@ -1,7 +1,7 @@
 import { Scene } from 'three';
 import { camera } from '../core/camera';
 import '../core/orbit-controls';
-import { piano } from '../piano/model/piano';
+import { piano } from '../piano/piano';
 import { ambientLight, directionalLight } from '../scene/lights';
 
 export const scene = new Scene();

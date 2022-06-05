@@ -1,5 +1,5 @@
 import { OrthographicCamera, PerspectiveCamera } from "three";
-import { piano } from "../piano/model/piano";
+import { piano } from "../piano/piano";
 
 const VERTICAL_FIELD_OF_VIEW = 45; // Normal
 

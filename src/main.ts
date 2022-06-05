@@ -1,11 +1,10 @@
 import TWEEN from '@tweenjs/tween.js';
 import { camera } from './core/camera';
 import { fpsGraph } from './core/gui';
-import { handleMouseMove } from './core/raycaster';
 import { renderer, updateRenderer } from './core/renderer';
 import { scene } from './scene/scene';
-
-window.addEventListener('mousemove', handleMouseMove)
+import '../src/piano/controls/mouse'
+import '../src/piano/controls/keyboard'
 
 updateRenderer()
 

@@ -1,8 +1,8 @@
 import { BoxGeometry, Group, Mesh, MeshBasicMaterial } from 'three';
-import { Key } from '../../types/key';
-import { BlackKey } from './black-key';
-import { PianoKey } from './piano-key';
-import { WhiteKey } from './white-key';
+import { Key } from '../types/key';
+import { BlackKey } from './model/black-key';
+import { PianoKey } from './model/piano-key';
+import { WhiteKey } from './model/white-key';
 
 const SPACE_BETWEEN_WHITE_KEYS = 2.25
 
@@ -85,6 +85,20 @@ class Piano {
         const firstKey = this.keys[0].model;
         const lastKey = this.keys[this.keys.length - 1].model;
         return firstKey.position.clone().add(lastKey.position).multiplyScalar(0.5);
+    }
+
+    keyDown = (key: PianoKey) => {
+        const keyToPress = this.keys.find(k => k.note === key.note && k.octave === key.octave);
+        if (keyToPress) {
+            keyToPress.keyDown();
+        }
+    }
+
+    keyUp = (key: PianoKey) => {
+        const keyToRelease = this.keys.find(k => k.note === key.note && k.octave === key.octave);
+        if (keyToRelease) {
+            keyToRelease.keyUp();
+        }
     }
 }
 
