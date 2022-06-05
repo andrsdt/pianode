@@ -1,5 +1,5 @@
 import { BoxGeometry, Group, Mesh, MeshBasicMaterial } from 'three';
-import { Key } from '../types/key';
+import { Key } from '../../types/key';
 import { BlackKey } from './black-key';
 import { PianoKey } from './piano-key';
 import { WhiteKey } from './white-key';
@@ -14,7 +14,6 @@ class Piano {
     constructor({ from, to }: { from: Key, to: Key }) {
         this.keys = [];
         this.model = new Group();
-        this.model.translateZ(-80)
         this.whiteKeyOffset = 0;
 
         const keys = this.getKeyRange(from, to);
@@ -69,18 +68,23 @@ class Piano {
         this.model.add(key.model);
     }
 
-    generateRedFeltStrip() {
+    generateRedFeltStrip = () => {
         const firstKey = this.keys[0].model;
         const lastKey = this.keys[this.keys.length - 1].model;
-        console.log(firstKey.position, lastKey.position)
         const strip = new Mesh(
-            new BoxGeometry(lastKey.position.z, 0.5, 0.5),
-            new MeshBasicMaterial({ color: 0x990000 })
+            new BoxGeometry(lastKey.position.z * .998, 0.5, 0.5),
+            new MeshBasicMaterial({ color: 0x880000 })
         )
-        strip.position.set(firstKey.position.z * 2, 1.8, (firstKey.position.z + lastKey.position.z) / 2);
+        strip.position.set(firstKey.position.z * 1.925, 1.75, this.getCenterPosition().z);
         strip.rotateY(Math.PI / 2);
         this.model.add(strip);
 
+    }
+
+    getCenterPosition = () => {
+        const firstKey = this.keys[0].model;
+        const lastKey = this.keys[this.keys.length - 1].model;
+        return firstKey.position.clone().add(lastKey.position).multiplyScalar(0.5);
     }
 }
 

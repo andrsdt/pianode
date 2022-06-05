@@ -1,7 +1,7 @@
 
 import TWEEN from "@tweenjs/tween.js";
 import { Mesh } from "three";
-import { piano } from "./tone";
+import { piano } from "../tone";
 
 export abstract class PianoKey {
     uuid: string;

@@ -2,8 +2,8 @@
 import { Raycaster, Vector2 } from "three";
 import { scene } from "../scene/scene";
 import { camera } from "./camera";
-import { piano as pianoModel } from '../piano/piano'
-import { PianoKey } from "../piano/piano-key";
+import { piano as pianoModel } from '../piano/model/piano'
+import { PianoKey } from "../piano/model/piano-key";
 
 export const raycaster = new Raycaster();
 export const pointer = new Vector2();

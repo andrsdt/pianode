@@ -1,4 +1,4 @@
-import { BoxGeometry, Color, MeshStandardMaterial } from "three";
+import { BoxGeometry, MeshStandardMaterial } from "three";
 import { PianoKey } from "./piano-key";
 
 const WHITE_KEY_X_SIZE = 13
