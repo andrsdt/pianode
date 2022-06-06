@@ -1,4 +1,4 @@
-import { PianoKey } from "../model/piano-key";
+import { Key } from '../../types/key';
 import { pressKey, releaseKey } from './controller';
 
 export const bindings: any = {
@@ -30,12 +30,11 @@ export const bindings: any = {
 
 
 window.addEventListener('keydown', (event: KeyboardEvent) => {
-    console.log(event.key)
-    const key: PianoKey = bindings[event.key];
+    const key: Key = bindings[event.key];
     pressKey(key)
 });
 
 window.addEventListener('keyup', (event: KeyboardEvent) => {
-    const key: PianoKey = bindings[event.key];
+    const key: Key = bindings[event.key];
     releaseKey(key)
 });

@@ -87,19 +87,19 @@ class Piano {
         return firstKey.position.clone().add(lastKey.position).multiplyScalar(0.5);
     }
 
-    keyDown = (key: PianoKey) => {
-        const keyToPress = this.keys.find(k => k.note === key.note && k.octave === key.octave);
+    keyDown = (key: Key, velocity = 1) => {
+        const keyToPress = this.keys.find(k => k.key.note === key.note && k.key.octave === key.octave);
         if (keyToPress) {
-            keyToPress.keyDown();
+            keyToPress.keyDown(velocity);
         }
     }
 
-    keyUp = (key: PianoKey) => {
-        const keyToRelease = this.keys.find(k => k.note === key.note && k.octave === key.octave);
+    keyUp = (key: Key) => {
+        const keyToRelease = this.keys.find(k => k.key.note === key.note && k.key.octave === key.octave);
         if (keyToRelease) {
             keyToRelease.keyUp();
         }
     }
 }
 
-export const piano = new Piano({ from: { note: "A", octave: 1 }, to: { note: "C", octave: 7 } });
+export const piano = new Piano({ from: { note: "A", octave: 0 }, to: { note: "C", octave: 9 } });
