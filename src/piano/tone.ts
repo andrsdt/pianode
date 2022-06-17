@@ -7,5 +7,5 @@ export const piano = new Piano({
 piano.toDestination()
 
 piano.load().then(() => {
-    console.log('loaded!')
+    console.log('loaded toneJs')
 });

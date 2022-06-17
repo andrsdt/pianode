@@ -1,7 +1,7 @@
 import TWEEN from '@tweenjs/tween.js';
 import '../src/piano/controls/keyboard';
-import '../src/piano/controls/mouse';
 import '../src/piano/controls/midi';
+import '../src/piano/controls/mouse';
 import { camera } from './core/camera';
 import { fpsGraph } from './core/gui';
 import { renderer, updateRenderer } from './core/renderer';
@@ -17,4 +17,4 @@ const loop = () => {
   fpsGraph.end()
 }
 
-loop();
+loop()

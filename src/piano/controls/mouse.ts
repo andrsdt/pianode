@@ -1,8 +1,8 @@
+import { piano as pianoModel } from "../piano-blender";
 import { releaseKey, pressKey } from './controller';
 import { Raycaster, Vector2 } from "three";
 import { scene } from "../../scene/scene";
 import { camera } from "../../core/camera";
-import { piano as pianoModel } from '../piano'
 import { PianoKey } from "../model/piano-key";
 
 const raycaster = new Raycaster();

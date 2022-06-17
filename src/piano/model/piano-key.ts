@@ -4,7 +4,7 @@ import TWEEN from "@tweenjs/tween.js";
 import { Mesh } from "three";
 import { piano } from "../tone";
 
-export abstract class PianoKey { // TODO event dispatcher to handle the set of pressed keys? Every time a key gets added or removed, the play method will be triggered here
+export class PianoKey { // TODO event dispatcher to handle the set of pressed keys? Every time a key gets added or removed, the play method will be triggered here
     uuid: string;
     key: Key
     pressed: boolean;
