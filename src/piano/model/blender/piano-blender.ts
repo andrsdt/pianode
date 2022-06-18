@@ -1,4 +1,4 @@
-import { Group, Mesh, MeshBasicMaterial, Texture, TextureLoader } from "three";
+import { Group, Mesh, MeshBasicMaterial, MeshStandardMaterial, Texture, TextureLoader } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Key } from "../../../types/key";
 import { Piano } from "../../piano";
@@ -41,8 +41,8 @@ export class PianoBlender extends Piano {
 
     private paintKeys = (textures: { whiteWood: Texture; blackWood: Texture; }) => {
         const materials = {
-            "whiteWood": new MeshBasicMaterial({ map: textures.whiteWood }),
-            "blackWood": new MeshBasicMaterial({ map: textures.blackWood })
+            "whiteWood": new MeshStandardMaterial({ map: textures.whiteWood }),
+            "blackWood": new MeshStandardMaterial({ map: textures.blackWood })
         };
 
         for (const key of this.keys) {
