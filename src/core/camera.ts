@@ -9,6 +9,7 @@ export const sizes = {
 
 const aspectRatio = sizes.width / sizes.height;
 
+// Perspective camera
 const perspectiveCameraTilted = new PerspectiveCamera(
     VERTICAL_FIELD_OF_VIEW,
     aspectRatio
@@ -16,6 +17,7 @@ const perspectiveCameraTilted = new PerspectiveCamera(
 perspectiveCameraTilted.position.set(-90, 80, 85)
 perspectiveCameraTilted.rotation.set(-Math.PI / 2, -0.9, -Math.PI / 2)
 
+// Ortographic camera
 const viewSize = 90;
 const ortographicCamera = new OrthographicCamera(
     -aspectRatio * viewSize / 2,
@@ -28,7 +30,7 @@ ortographicCamera.translateY(1000)
 ortographicCamera.lookAt(0, 0, 87.75) // Middle of the piano
 ortographicCamera.rotateZ(Math.PI / 2)
 
-
+// Camera switching mechanism
 const availableCameras: any = { perspectiveCameraTilted, ortographicCamera }
 
 export let camera = availableCameras.perspectiveCameraTilted // Default camera

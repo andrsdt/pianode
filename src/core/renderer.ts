@@ -4,7 +4,7 @@ import { sizes } from './camera';
 // Renderer
 const canvas: HTMLElement = document.querySelector('#experience') as HTMLElement
 
-export const renderer = new WebGLRenderer(({ canvas }));
+export const renderer = new WebGLRenderer(({ canvas, antialias: true }));
 
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = PCFShadowMap
