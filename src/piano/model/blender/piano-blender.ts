@@ -53,7 +53,7 @@ export class PianoBlender extends Piano {
 
 const modelLoader = new GLTFLoader();
 const textureLoader = new TextureLoader()
-const gltf = await modelLoader.loadAsync("/models/piano-keys.glb")
-const whiteWood = await textureLoader.loadAsync("/textures/white-wood.png");
-const blackWood = await textureLoader.loadAsync("/textures/black-wood.png");
+const gltf = await modelLoader.loadAsync("/piano-three-js/models/piano-keys.glb")
+const whiteWood = await textureLoader.loadAsync("/piano-three-js/textures/white-wood.png");
+const blackWood = await textureLoader.loadAsync("/piano-three-js/textures/black-wood.png");
 export const pianoBlender = new PianoBlender({ from: { note: 'A', octave: 0 }, to: { note: 'C', octave: 8 } }, gltf.scene, { whiteWood, blackWood })

@@ -6,6 +6,5 @@ export const piano = new Piano({
 
 piano.toDestination()
 
-piano.load().then(() => {
-    console.log('loaded toneJs')
-});
+// TODO: show loading screen until the sound is loaded
+await piano.load()
