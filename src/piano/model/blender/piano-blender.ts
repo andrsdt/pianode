@@ -1,4 +1,4 @@
-import { Group, Mesh, MeshBasicMaterial, RepeatWrapping, Texture, TextureLoader } from "three";
+import { Group, Mesh, MeshBasicMaterial, Texture, TextureLoader } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Key } from "../../../types/key";
 import { Piano } from "../../piano";
@@ -40,11 +40,6 @@ export class PianoBlender extends Piano {
     }
 
     private paintKeys = (textures: { whiteWood: Texture; blackWood: Texture; }) => {
-        for (const texture of Object.values(textures)) {
-            // TODO: check if needed
-            texture.wrapS = RepeatWrapping;
-            texture.wrapT = RepeatWrapping;
-        }
         const materials = {
             "whiteWood": new MeshBasicMaterial({ map: textures.whiteWood }),
             "blackWood": new MeshBasicMaterial({ map: textures.blackWood })
@@ -58,8 +53,7 @@ export class PianoBlender extends Piano {
 
 const modelLoader = new GLTFLoader();
 const textureLoader = new TextureLoader()
-const gltf = await modelLoader.loadAsync("src/piano/model/blender/glb/piano-keys.glb")
-const whiteWood = await textureLoader.loadAsync("src/piano/model/blender/textures/white-wood.png");
-const blackWood = await textureLoader.loadAsync("src/piano/model/blender/textures/black-wood.png");
-const textures = { whiteWood, blackWood }
-export const pianoBlender = new PianoBlender({ from: { note: 'A', octave: 0 }, to: { note: 'C', octave: 8 } }, gltf.scene, textures)
+const gltf = await modelLoader.loadAsync("/models/piano-keys.glb")
+const whiteWood = await textureLoader.loadAsync("/textures/white-wood.png");
+const blackWood = await textureLoader.loadAsync("/textures/black-wood.png");
+export const pianoBlender = new PianoBlender({ from: { note: 'A', octave: 0 }, to: { note: 'C', octave: 8 } }, gltf.scene, { whiteWood, blackWood })
