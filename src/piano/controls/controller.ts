@@ -1,6 +1,6 @@
+import { PianoKey } from "../../core/piano-key";
 import { Key } from "../../types/key";
-import { PianoKey } from "../model/piano-key";
-import { piano } from "../piano-blender";
+import { piano } from "../model/blender/piano-blender";
 
 export const pressedKeys = new Set<string>(); // {A3, B#4, C9}...
 

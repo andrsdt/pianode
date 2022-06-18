@@ -1,9 +1,9 @@
-import { piano as pianoModel } from "../piano-blender";
-import { releaseKey, pressKey } from './controller';
 import { Raycaster, Vector2 } from "three";
-import { scene } from "../../scene/scene";
 import { camera } from "../../core/camera";
-import { PianoKey } from "../model/piano-key";
+import { PianoKey } from '../../core/piano-key';
+import { scene } from "../../scene/scene";
+import { piano } from "../model/blender/piano-blender";
+import { pressKey, releaseKey } from './controller';
 
 const raycaster = new Raycaster();
 const pointer = new Vector2();
@@ -21,7 +21,7 @@ const handleMove = (e: MouseEvent) => {
     const intersects = raycaster.intersectObjects(scene.children);
     if (intersects.length > 0) {
         let intersected = intersects[0].object
-        const keyBeingHovered = pianoModel.keys.find(k => k.uuid === intersected.uuid);
+        const keyBeingHovered = piano.keys.find(k => k.uuid === intersected.uuid);
         if (selected !== keyBeingHovered) releaseKey(selected);
         pressKey(keyBeingHovered);
         selected = keyBeingHovered

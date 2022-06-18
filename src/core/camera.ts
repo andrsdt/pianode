@@ -1,5 +1,6 @@
 import { OrthographicCamera, PerspectiveCamera } from "three";
-import { piano } from "../piano/piano-blender";
+import { piano } from "../piano/model/blender/piano-blender";
+import { pointLight } from "../scene/lights";
 
 const VERTICAL_FIELD_OF_VIEW = 45; // Normal
 
@@ -15,8 +16,7 @@ const perspectiveCameraTop = new PerspectiveCamera(
     aspectRatio
 )
 perspectiveCameraTop.position.set(0, 90, 60)
-// TODO: fix this to work with async model loading
-// perspectiveCameraTop.lookAt(piano.getCenterPosition());
+perspectiveCameraTop.lookAt(piano.getCenterPosition());
 perspectiveCameraTop.rotateZ(Math.PI / 2)
 
 const perspectiveCameraTilted = new PerspectiveCamera(
@@ -34,12 +34,13 @@ const ortographicCamera = new OrthographicCamera(
     -viewSize / 2,
 )
 ortographicCamera.position.set(0, 220, 40)
-// TODO: fix this to work with async model loading
-// ortographicCamera.lookAt(piano.getCenterPosition());
+ortographicCamera.lookAt(piano.getCenterPosition());
 ortographicCamera.rotateZ(Math.PI / 2)
 
 const cameras = { perspectiveCameraTop, perspectiveCameraTilted, ortographicCamera }
 export const camera = cameras.perspectiveCameraTilted
+
+camera.add(pointLight);
 
 window.addEventListener('resize', () => {
     camera.aspect = sizes.width / sizes.height

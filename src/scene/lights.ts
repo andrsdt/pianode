@@ -1,4 +1,4 @@
-import { AmbientLight, DirectionalLight } from "three";
+import { AmbientLight, DirectionalLight, PointLight } from "three";
 
 export const ambientLight = new AmbientLight(0xffffff, 0.5);
 
@@ -8,3 +8,6 @@ directionalLight.shadow.mapSize.set(1024, 1024)
 directionalLight.shadow.camera.far = 15
 directionalLight.shadow.normalBias = 0.05
 directionalLight.position.set(70, 24, 62.25)
+
+export const pointLight = new PointLight(0xffffff, 0.6);
+

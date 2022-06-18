@@ -1,6 +1,6 @@
 import { EventDispatcher, Group } from 'three';
 import { Key } from '../types/key';
-import { PianoKey } from './model/piano-key';
+import { PianoKey } from '../core/piano-key';
 
 export abstract class Piano extends EventDispatcher {
     keys: PianoKey[]
@@ -49,9 +49,9 @@ export abstract class Piano extends EventDispatcher {
     }
 
     keyUp = (key: Key) => {
-        this.dispatchEvent({ type: "keyup", key });
         const keyToRelease = this.keys.find(k => k.key.note === key.note && k.key.octave === key.octave);
         if (keyToRelease) {
+            this.dispatchEvent({ type: "keyup", key: keyToRelease });
             keyToRelease.keyUp();
         }
     }
