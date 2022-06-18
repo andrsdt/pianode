@@ -1,5 +1,4 @@
 import { OrthographicCamera, PerspectiveCamera } from "three";
-import { piano } from "../piano/model/blender/piano-blender";
 
 const VERTICAL_FIELD_OF_VIEW = 45; // Normal
 
@@ -10,37 +9,31 @@ export const sizes = {
 
 const aspectRatio = sizes.width / sizes.height;
 
-const perspectiveCameraTop = new PerspectiveCamera(
-    VERTICAL_FIELD_OF_VIEW,
-    aspectRatio
-)
-perspectiveCameraTop.position.set(0, 90, 60)
-perspectiveCameraTop.lookAt(piano.getCenterPosition());
-perspectiveCameraTop.rotateZ(Math.PI / 2)
-
 const perspectiveCameraTilted = new PerspectiveCamera(
     VERTICAL_FIELD_OF_VIEW,
     aspectRatio
 )
-perspectiveCameraTilted.position.set(-95, 80, 100)
-perspectiveCameraTilted.rotation.set(-Math.PI / 2, -.9, -Math.PI / 2)
+perspectiveCameraTilted.position.set(-90, 80, 85)
+perspectiveCameraTilted.rotation.set(-Math.PI / 2, -0.9, -Math.PI / 2)
 
-const viewSize = 100;
+const viewSize = 90;
 const ortographicCamera = new OrthographicCamera(
     -aspectRatio * viewSize / 2,
     aspectRatio * viewSize / 2,
     viewSize / 2,
     -viewSize / 2,
 )
-ortographicCamera.position.set(0, 220, 40)
-ortographicCamera.lookAt(piano.getCenterPosition());
+
+ortographicCamera.translateY(1000)
+ortographicCamera.lookAt(0, 0, 87.75) // Middle of the piano
 ortographicCamera.rotateZ(Math.PI / 2)
 
-const availableCameras: any = { perspectiveCameraTop, perspectiveCameraTilted, ortographicCamera }
 
-export let camera = availableCameras.perspectiveCameraTilted
+const availableCameras: any = { perspectiveCameraTilted, ortographicCamera }
 
-export const changeActiveCamera = (c: string) => {
+export let camera = availableCameras.perspectiveCameraTilted // Default camera
+
+export const changeActiveCamera = (c: 'perspectiveCameraTilted' | 'ortographicCamera') => {
     camera = availableCameras[c];
 }
 

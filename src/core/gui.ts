@@ -1,5 +1,6 @@
 import * as EssentialsPlugin from '@tweakpane/plugin-essentials';
 import { Pane } from 'tweakpane';
+import { changeActivePiano } from '../piano/active-piano-handler';
 import { changeActiveCamera } from './camera';
 
 export const gui = new Pane();
@@ -10,25 +11,21 @@ export const fpsGraph = gui.addBlade({
     label: 'FPS',
 })
 
-// export const pianoFolder = gui.addFolder({
-//     title: 'Piano',
-// });
+export const pianoFolder = gui.addFolder({
+    title: 'Piano',
+});
 
-// pianoFolder.addButton({
-//     title: 'Low-poly piano'
-// }).on('click', () => changeActivePiano('threeJs'));
+pianoFolder.addButton({
+    title: 'Low-poly piano'
+}).on('click', () => changeActivePiano('pianoThreeJs'));
 
-// pianoFolder.addButton({
-//     title: 'Realistic piano'
-// }).on('click', () => changeActivePiano('blender'));
+pianoFolder.addButton({
+    title: 'Realistic piano'
+}).on('click', () => changeActivePiano('pianoBlender'));
 
 export const cameraFolder = gui.addFolder({
     title: 'Camera',
 });
-
-cameraFolder.addButton({
-    title: 'Perspective camera (top)'
-}).on('click', () => changeActiveCamera('perspectiveCameraTop'));
 
 cameraFolder.addButton({
     title: 'Perspective camera (tilted)'

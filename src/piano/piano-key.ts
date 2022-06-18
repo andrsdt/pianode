@@ -19,7 +19,7 @@ export abstract class PianoKey { // TODO event dispatcher to handle the set of p
         this.model = model || new Mesh();
         this.uuid = this.model.uuid;
         this.baseY = this.model.position.y;
-        this.keyDownAnimationTo = { yPos: this.baseY - 0.5, zRot: 0.08 }
+        this.keyDownAnimationTo = { yPos: 0, zRot: 0 }
     }
 
     keyDown = (velocity = 1) => {

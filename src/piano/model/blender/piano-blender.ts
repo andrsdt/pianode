@@ -1,42 +1,65 @@
-import { Group, Mesh, MeshBasicMaterial } from "three";
+import { Group, Mesh, MeshBasicMaterial, RepeatWrapping, Texture, TextureLoader } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Key } from "../../../types/key";
-import { BlackKey } from "../../black-key";
 import { Piano } from "../../piano";
-import { WhiteKey } from "../../white-key";
+import { BlackKeyBlender } from "./black-key-blender";
+import { WhiteKeyBlender } from "./white-key-blender";
 
 export class PianoBlender extends Piano {
     private gltfModel: Group;
 
-    public constructor({ from, to }: { from: Key, to: Key }, gltfModel: Group) {
+    public constructor({ from, to }: { from: Key, to: Key }, gltfModel: Group, textures: { whiteWood: Texture; blackWood: Texture; }) {
         super();
         this.model.translateZ(170)
-        this.model.scale.set(0.5, 0.5, 0.5);
+        this.model.scale.set(0.72, 0.72, 0.72);
         this.model.rotateY(-Math.PI / 2);
         this.gltfModel = gltfModel
         this.createKeys(from, to)
+        this.paintFeltStrip()
+        this.paintKeys(textures)
     }
 
     private createKeys = (from: Key, to: Key) => {
         const keys = this.getKeyRange(from, to);
         for (const k of keys) {
-            // TODO: Too many ifs, refactor
             const model = this.gltfModel.getObjectByName(`${k.note}${k.octave}`) as Mesh;
-            const key = this.isBlackNote(k.note) ? new BlackKey(k.note, k.octave, model) : new WhiteKey(k.note, k.octave, model);
-            key.baseY = this.isBlackNote(k.note) ? 3 : 0.6;
-            key.keyDownAnimationTo = this.isBlackNote(k.note) ?
-                { yPos: key.baseY - 0.7, zRot: -0.05 } :
-                { yPos: key.baseY, zRot: 0.06 }
-            const color = this.isBlackNote(k.note) ? 0x222222 : 0xcccccc;
-            key.model.material = new MeshBasicMaterial({ color });
+
+            const key = this.isBlackNote(k.note) ?
+                new BlackKeyBlender(k.note, k.octave, model) :
+                new WhiteKeyBlender(k.note, k.octave, model);
 
             this.keys.push(key);
             this.model.add(key.model);
         }
     }
+
+    private paintFeltStrip = () => {
+        const strip = this.gltfModel.getObjectByName('FELT') as Mesh;
+        strip.material = new MeshBasicMaterial({ color: 0x880000 });
+        this.model.add(strip);
+    }
+
+    private paintKeys = (textures: { whiteWood: Texture; blackWood: Texture; }) => {
+        for (const texture of Object.values(textures)) {
+            // TODO: check if needed
+            texture.wrapS = RepeatWrapping;
+            texture.wrapT = RepeatWrapping;
+        }
+        const materials = {
+            "whiteWood": new MeshBasicMaterial({ map: textures.whiteWood }),
+            "blackWood": new MeshBasicMaterial({ map: textures.blackWood })
+        };
+
+        for (const key of this.keys) {
+            key.model.material = this.isBlackNote(key.key.note) ? materials.blackWood : materials.whiteWood;
+        }
+    }
 }
 
-const loader = new GLTFLoader();
-const gltf = await loader.loadAsync(`src/piano/model/blender/glb/piano-keys.glb`)
-export const piano = new PianoBlender({ from: { note: 'A', octave: 0 }, to: { note: 'C', octave: 8 } }, gltf.scene)
-// export const piano = new PianoThreeJs({ from: { note: 'A', octave: 0 }, to: { note: 'C', octave: 8 } })
+const modelLoader = new GLTFLoader();
+const textureLoader = new TextureLoader()
+const gltf = await modelLoader.loadAsync("src/piano/model/blender/glb/piano-keys.glb")
+const whiteWood = await textureLoader.loadAsync("src/piano/model/blender/textures/white-wood.png");
+const blackWood = await textureLoader.loadAsync("src/piano/model/blender/textures/black-wood.png");
+const textures = { whiteWood, blackWood }
+export const pianoBlender = new PianoBlender({ from: { note: 'A', octave: 0 }, to: { note: 'C', octave: 8 } }, gltf.scene, textures)
