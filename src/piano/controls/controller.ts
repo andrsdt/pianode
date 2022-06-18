@@ -1,4 +1,4 @@
-import { PianoKey } from "../../core/piano-key";
+import { PianoKey } from "../piano-key";
 import { Key } from "../../types/key";
 import { piano } from "../model/blender/piano-blender";
 

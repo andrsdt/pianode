@@ -1,6 +1,5 @@
 import { OrthographicCamera, PerspectiveCamera } from "three";
 import { piano } from "../piano/model/blender/piano-blender";
-import { pointLight } from "../scene/lights";
 
 const VERTICAL_FIELD_OF_VIEW = 45; // Normal
 
@@ -37,10 +36,13 @@ ortographicCamera.position.set(0, 220, 40)
 ortographicCamera.lookAt(piano.getCenterPosition());
 ortographicCamera.rotateZ(Math.PI / 2)
 
-const cameras = { perspectiveCameraTop, perspectiveCameraTilted, ortographicCamera }
-export const camera = cameras.perspectiveCameraTilted
+const availableCameras: any = { perspectiveCameraTop, perspectiveCameraTilted, ortographicCamera }
 
-camera.add(pointLight);
+export let camera = availableCameras.perspectiveCameraTilted
+
+export const changeActiveCamera = (c: string) => {
+    camera = availableCameras[c];
+}
 
 window.addEventListener('resize', () => {
     camera.aspect = sizes.width / sizes.height

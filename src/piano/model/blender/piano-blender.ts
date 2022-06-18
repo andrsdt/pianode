@@ -1,4 +1,4 @@
-import { Group, Mesh } from "three";
+import { Group, Mesh, MeshBasicMaterial } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Key } from "../../../types/key";
 import { BlackKey } from "../../black-key";
@@ -20,11 +20,16 @@ export class PianoBlender extends Piano {
     private createKeys = (from: Key, to: Key) => {
         const keys = this.getKeyRange(from, to);
         for (const k of keys) {
-            const key = this.isBlackNote(k.note) ? new BlackKey(k.note, k.octave) : new WhiteKey(k.note, k.octave);
-            key.baseY = this.isBlackNote(k.note) ? 3 : -.5;
-            key.keyDownAnimationTo = this.isBlackNote(k.note) ? { yPos: key.baseY + 0.5, zRot: 0.8 } :
-                { yPos: key.baseY - 0.8, zRot: 0.08 }
-            key.model = this.gltfModel.getObjectByName(`${k.note}${k.octave}`) as Mesh;
+            // TODO: Too many ifs, refactor
+            const model = this.gltfModel.getObjectByName(`${k.note}${k.octave}`) as Mesh;
+            const key = this.isBlackNote(k.note) ? new BlackKey(k.note, k.octave, model) : new WhiteKey(k.note, k.octave, model);
+            key.baseY = this.isBlackNote(k.note) ? 3 : 0.6;
+            key.keyDownAnimationTo = this.isBlackNote(k.note) ?
+                { yPos: key.baseY - 0.7, zRot: -0.05 } :
+                { yPos: key.baseY, zRot: 0.06 }
+            const color = this.isBlackNote(k.note) ? 0x222222 : 0xcccccc;
+            key.model.material = new MeshBasicMaterial({ color });
+
             this.keys.push(key);
             this.model.add(key.model);
         }

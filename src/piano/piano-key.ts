@@ -2,7 +2,7 @@ import { Key } from '../types/key'
 
 import TWEEN from "@tweenjs/tween.js";
 import { Mesh } from "three";
-import { piano } from '../piano/tone';
+import { piano } from './tone';
 
 export abstract class PianoKey { // TODO event dispatcher to handle the set of pressed keys? Every time a key gets added or removed, the play method will be triggered here
     uuid: string;
@@ -13,10 +13,10 @@ export abstract class PianoKey { // TODO event dispatcher to handle the set of p
     currentAnimation: any;
     keyDownAnimationTo: { yPos: number, zRot: number };
 
-    constructor(note: string, octave: number) {
+    constructor(note: string, octave: number, model: Mesh) {
         this.key = { note, octave };
         this.pressed = false;
-        this.model = new Mesh();
+        this.model = model || new Mesh();
         this.uuid = this.model.uuid;
         this.baseY = this.model.position.y;
         this.keyDownAnimationTo = { yPos: this.baseY - 0.5, zRot: 0.08 }

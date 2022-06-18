@@ -7,7 +7,5 @@ export const scene = new Scene();
 
 scene.add(ambientLight);
 scene.add(directionalLight);
-scene.add(piano.model)
-
 scene.add(camera)
-// TODO add an easy way to switch between piano-three-js and piano-blender
+scene.add(piano.model)

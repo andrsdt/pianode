@@ -1,6 +1,6 @@
 import { Raycaster, Vector2 } from "three";
 import { camera } from "../../core/camera";
-import { PianoKey } from '../../core/piano-key';
+import { PianoKey } from '../piano-key';
 import { scene } from "../../scene/scene";
 import { piano } from "../model/blender/piano-blender";
 import { pressKey, releaseKey } from './controller';

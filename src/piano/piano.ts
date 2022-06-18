@@ -1,6 +1,6 @@
 import { EventDispatcher, Group } from 'three';
 import { Key } from '../types/key';
-import { PianoKey } from '../core/piano-key';
+import { PianoKey } from './piano-key';
 
 export abstract class Piano extends EventDispatcher {
     keys: PianoKey[]

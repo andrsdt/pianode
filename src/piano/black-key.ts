@@ -1,7 +1,8 @@
-import { PianoKey } from "../core/piano-key";
+import { Mesh } from "three";
+import { PianoKey } from "./piano-key";
 
 export class BlackKey extends PianoKey {
-    constructor(note: string, octave: number) {
-        super(note, octave);
+    constructor(note: string, octave: number, model: Mesh) {
+        super(note, octave, model);
     }
 }

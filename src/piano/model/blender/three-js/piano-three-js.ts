@@ -1,8 +1,8 @@
 import { BoxGeometry, Mesh, MeshBasicMaterial, MeshStandardMaterial } from "three";
-import { Key } from "../../../types/key";
-import { BlackKey } from "../../black-key";
-import { Piano } from "../../piano";
-import { WhiteKey } from "../../white-key";
+import { Key } from "../../../../types/key";
+import { BlackKey } from "../../black-key-blender";
+import { Piano } from "../../../piano";
+import { WhiteKey } from "../../../white-key";
 
 const SPACE_BETWEEN_WHITE_KEYS = 2.25
 
