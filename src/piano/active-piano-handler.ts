@@ -4,7 +4,7 @@ import { pianoBlender } from "./model/blender/piano-blender"
 import { pianoThreeJs } from "./model/three-js/piano-three-js"
 
 const availablePianos = { pianoThreeJs, pianoBlender }
-export let piano: Piano = pianoThreeJs
+export let piano: Piano = pianoBlender // Default piano
 scene.add(piano.model)
 
 export const changeActivePiano = (p: 'pianoThreeJs' | 'pianoBlender') => {

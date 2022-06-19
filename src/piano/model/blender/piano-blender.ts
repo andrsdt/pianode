@@ -7,16 +7,34 @@ import { WhiteKeyBlender } from "./white-key-blender";
 
 export class PianoBlender extends Piano {
     private gltfModel: Group;
+    private materials: { [key: string]: MeshStandardMaterial }
 
     public constructor({ from, to }: { from: Key, to: Key }, gltfModel: Group, textures: { whiteWood: Texture; blackWood: Texture; }) {
         super();
         this.model.translateZ(170)
         this.model.scale.set(0.72, 0.72, 0.72);
         this.model.rotateY(-Math.PI / 2);
+
         this.gltfModel = gltfModel
+        this.materials = {
+            "whiteWood": new MeshStandardMaterial({ map: textures.whiteWood }),
+            "blackWood": new MeshStandardMaterial({ map: textures.blackWood })
+        };
+        this.createStructure()
         this.createKeys(from, to)
-        this.paintFeltStrip()
-        this.paintKeys(textures)
+        this.createFeltStrip()
+        this.createLogo()
+    }
+    private createStructure = () => {
+        this.model.add(this.gltfModel.getObjectByName("base") as Mesh)
+    }
+
+    private createLogo = () => {
+        for (const m of ["github-logo", "andrsdt"]) {
+            const model = this.gltfModel.getObjectByName(m) as Mesh
+            model.material = this.materials.whiteWood
+            this.model.add(model)
+        }
     }
 
     private createKeys = (from: Key, to: Key) => {
@@ -28,26 +46,19 @@ export class PianoBlender extends Piano {
                 new BlackKeyBlender(k.note, k.octave, model) :
                 new WhiteKeyBlender(k.note, k.octave, model);
 
+            key.model.material = this.isBlackNote(key.key.note) ?
+                this.materials.blackWood :
+                this.materials.whiteWood;
+
             this.keys.push(key);
             this.model.add(key.model);
         }
     }
 
-    private paintFeltStrip = () => {
-        const strip = this.gltfModel.getObjectByName('FELT') as Mesh;
+    private createFeltStrip = () => {
+        const strip = this.gltfModel.getObjectByName("felt") as Mesh;
         strip.material = new MeshBasicMaterial({ color: 0x880000 });
         this.model.add(strip);
-    }
-
-    private paintKeys = (textures: { whiteWood: Texture; blackWood: Texture; }) => {
-        const materials = {
-            "whiteWood": new MeshStandardMaterial({ map: textures.whiteWood }),
-            "blackWood": new MeshStandardMaterial({ map: textures.blackWood })
-        };
-
-        for (const key of this.keys) {
-            key.model.material = this.isBlackNote(key.key.note) ? materials.blackWood : materials.whiteWood;
-        }
     }
 }
 
