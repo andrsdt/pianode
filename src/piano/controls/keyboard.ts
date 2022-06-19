@@ -27,7 +27,7 @@ export const bindings: any = {
     'U': { note: 'A#', octave: 5 },
     'J': { note: 'B', octave: 5 }
 }
-
+// TODO: handle sustain with spacebar too
 
 window.addEventListener('keydown', (event: KeyboardEvent) => {
     const key: Key = bindings[event.key];

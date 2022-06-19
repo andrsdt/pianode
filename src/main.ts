@@ -2,17 +2,16 @@ import TWEEN from '@tweenjs/tween.js';
 import '../src/piano/controls/keyboard';
 import '../src/piano/controls/midi';
 import '../src/piano/controls/mouse';
+import { cameraControls } from './core/camera';
+import { composer, updateComposer } from './core/composer';
 import './core/gui';
-import { camera, cameraControls } from './core/camera';
-import { renderer, updateRenderer } from './core/renderer';
-import { scene } from './scene/scene';
-// orbit controls
-updateRenderer()
+
+updateComposer()
 
 const loop = () => {
   TWEEN.update()
+  composer.render()
   cameraControls.update()
-  renderer.render(scene, camera)
   requestAnimationFrame(loop)
 }
 

@@ -41,7 +41,7 @@ export class PianoThreeJs extends Piano {
         const { note, octave } = k
         const key = new BlackKeyThreeJs(note, octave);
 
-        key.model.translateX(key.model.scale.x * 2.5);
+        key.model.translateX(key.model.scale.x * 4.8);
         key.model.translateY(key.model.scale.y);
         key.model.translateZ(this.whiteKeyOffset + 1.5);
 
@@ -56,10 +56,18 @@ export class PianoThreeJs extends Piano {
             new BoxGeometry(lastKey.position.z * .998, 0.5, 0.5),
             new MeshBasicMaterial({ color: 0x880000 })
         )
-        strip.position.set(firstKey.position.z * 1.925, 1.75, this.getCenterPosition().z);
+        strip.position.set(firstKey.position.z * 2.95, 1.75, this.getCenterPosition().z);
         strip.rotateY(Math.PI / 2);
 
         this.model.add(strip);
+    }
+
+    pedalDown = () => {
+        console.error("Pedal is not implemented in the low-poly piano")
+    }
+
+    pedalUp = () => {
+        console.error("Pedal is not implemented in the low-poly piano")
     }
 }
 

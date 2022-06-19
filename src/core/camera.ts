@@ -1,6 +1,7 @@
-import { OrthographicCamera, PerspectiveCamera } from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { renderer } from "./renderer";
+import TWEEN from '@tweenjs/tween.js';
+import { PerspectiveCamera } from "three";
+import { renderer } from './renderer';
 
 const VERTICAL_FIELD_OF_VIEW = 45; // Normal
 
@@ -11,57 +12,35 @@ export const sizes = {
 
 const aspectRatio = sizes.width / sizes.height;
 
-// Free camera
-const freeCamera = new PerspectiveCamera(
+export const camera = new PerspectiveCamera(
     VERTICAL_FIELD_OF_VIEW,
-    aspectRatio,
+    aspectRatio
 )
-freeCamera.position.set(-90, 80, 85)
 
-export const cameraControls = new OrbitControls(freeCamera, renderer.domElement)
+camera.position.set(-87.76, 80, 87.76)
+camera.rotation.set(-Math.PI / 2, -0.9, -Math.PI / 2)
+
+export const cameraControls = new OrbitControls(camera, renderer.domElement)
 cameraControls.enableDamping = true
 cameraControls.dampingFactor = 0.25
 cameraControls.target.set(0, 0, 87.75)
-
-// Perspective camera
-const perspectiveCameraTilted = new PerspectiveCamera(
-    VERTICAL_FIELD_OF_VIEW,
-    aspectRatio
-)
-perspectiveCameraTilted.position.set(-90, 80, 85)
-perspectiveCameraTilted.rotation.set(-Math.PI / 2, -0.9, -Math.PI / 2)
-
-// Side camera
-const perspectiveCameraSide = new PerspectiveCamera(
-    VERTICAL_FIELD_OF_VIEW,
-    aspectRatio
-)
-perspectiveCameraSide.position.set(-20, 10, -20)
-perspectiveCameraSide.lookAt(0, 0, 87.75)
-
-// Ortographic camera
-const viewSize = 100;
-const ortographicCamera = new OrthographicCamera(
-    -aspectRatio * viewSize / 2,
-    aspectRatio * viewSize / 2,
-    viewSize / 2,
-    -viewSize / 2,
-)
-
-ortographicCamera.translateY(1000)
-ortographicCamera.lookAt(0, 0, 87.75) // Middle of the piano
-ortographicCamera.rotateZ(Math.PI / 2)
-
-// Camera switching mechanism
-const availableCameras: any = { freeCamera, perspectiveCameraTilted, perspectiveCameraSide, ortographicCamera }
-
-export let camera = availableCameras.freeCamera // Default camera
-
-export const changeActiveCamera = (c: 'freeCamera' | 'perspectiveCameraTilted' | 'perspectiveCameraSide' | 'ortographicCamera') => {
-    camera = availableCameras[c];
-}
+cameraControls.enabled = false // Disable by default
 
 window.addEventListener('resize', () => {
     camera.aspect = sizes.width / sizes.height
     camera.updateProjectionMatrix()
 })
+
+const cameras = { // Target position coordinates for each camera
+    "top": { x: -5, y: 120, z: 87.76 },
+    "tilted": { x: -87.76, y: 80, z: 87.76 },
+    "side": { x: -20, y: 10, z: -20 }
+}
+
+export const changeToCamera = (c: 'top' | 'tilted' | 'side') => {
+    cameraControls.enabled = false
+    new TWEEN.Tween(camera.position)
+        .to(cameras[c], 1000)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .start()
+}

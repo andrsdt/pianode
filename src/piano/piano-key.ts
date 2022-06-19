@@ -10,7 +10,7 @@ export abstract class PianoKey { // TODO event dispatcher to handle the set of p
     pressed: boolean;
     model: Mesh;
     baseY: number;
-    currentAnimation: any;
+    currentKeyAnimation: any;
     keyDownAnimationTo: { yPos: number, zRot: number };
 
     constructor(note: string, octave: number, model: Mesh) {
@@ -32,8 +32,8 @@ export abstract class PianoKey { // TODO event dispatcher to handle the set of p
         const coords = { yPos: this.model.position.y, zRot: this.model.rotation.z }
         const to = this.keyDownAnimationTo // This will be different for blender and three-js models
 
-        this.currentAnimation?.stop() // Before starting a new animation, make sure to stop the one that is already running
-        this.currentAnimation = new TWEEN.Tween(coords)
+        this.currentKeyAnimation?.stop() // Before starting a new animation, make sure to stop the one that is already running
+        this.currentKeyAnimation = new TWEEN.Tween(coords)
             .to(to, 100 / velocity)
             .easing(TWEEN.Easing.Quadratic.Out)
             .onUpdate(() => {
@@ -54,8 +54,8 @@ export abstract class PianoKey { // TODO event dispatcher to handle the set of p
         const coords = { yPos: this.model.position.y, zRot: this.model.rotation.z }
         const to = { yPos: this.baseY, zRot: 0 };
 
-        this.currentAnimation?.stop()  // Before starting a new animation, make sure to stop the one that is already running
-        this.currentAnimation = new TWEEN.Tween(coords)
+        this.currentKeyAnimation?.stop()  // Before starting a new animation, make sure to stop the one that is already running
+        this.currentKeyAnimation = new TWEEN.Tween(coords)
             .to(to, 600)
             .easing(TWEEN.Easing.Bounce.Out)
             .onUpdate(() => {

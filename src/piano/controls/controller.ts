@@ -21,3 +21,11 @@ export const releaseKey = (k: Key | PianoKey | undefined) => {
     piano.keyUp(k)
     pressedKeys.delete(kStr)
 }
+
+export const pressPedal = () => {
+    piano.pedalDown()
+}
+
+export const releasePedal = () => {
+    piano.pedalUp()
+}

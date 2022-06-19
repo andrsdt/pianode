@@ -55,4 +55,17 @@ export abstract class Piano extends EventDispatcher {
             keyToRelease.keyUp();
         }
     }
+
+    pedalDown = () => {
+        // Definition. Enforces implementation in piano subclasses
+    }
+
+    pedalUp = () => {
+        // Definition. Enforces implementation in piano subclasses
+    }
+
+    toggleSustainButton() {
+        // Definition. Enforces implementation in piano subclasses
+    }
+
 }

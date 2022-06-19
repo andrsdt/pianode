@@ -1,6 +1,6 @@
 import { Pane } from 'tweakpane';
 import { changeActivePiano } from '../piano/active-piano-handler';
-import { changeActiveCamera } from './camera';
+import { cameraControls, changeToCamera } from './camera';
 
 const gui = new Pane();
 
@@ -23,18 +23,18 @@ export const cameraFolder = gui.addFolder({
 
 cameraFolder.addButton({
     title: 'Free camera'
-}).on('click', () => changeActiveCamera('freeCamera'));
+}).on('click', () => cameraControls.enabled = true);
+
+cameraFolder.addButton({
+    title: 'Perspective camera (top)'
+}).on('click', () => changeToCamera('top'));
 
 cameraFolder.addButton({
     title: 'Perspective camera (tilted)'
-}).on('click', () => changeActiveCamera('perspectiveCameraTilted'));
+}).on('click', () => changeToCamera('tilted'));
 
 cameraFolder.addButton({
     title: 'Perspective camera (side)'
-}).on('click', () => changeActiveCamera('perspectiveCameraSide'));
-
-cameraFolder.addButton({
-    title: 'Ortographic camera'
-}).on('click', () => changeActiveCamera('ortographicCamera'));
+}).on('click', () => changeToCamera('side'));
 
 export default gui;
