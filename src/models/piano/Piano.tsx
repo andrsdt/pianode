@@ -7,6 +7,7 @@ import { useGLTF } from '@react-three/drei'
 import { useRef } from 'react'
 import * as THREE from 'three'
 import { GLTF } from 'three-stdlib'
+import { PUBLIC_URL } from '../../consts'
 import { Keys } from './Keys'
 import { Sustain } from './Pedals'
 
@@ -131,7 +132,7 @@ export function Piano({ ...props }: JSX.IntrinsicElements['group']) {
   const structure = useRef<THREE.Group>()
   const room = useRef<THREE.Group>()
 
-  const { nodes, materials } = useGLTF('/models/piano-draco.glb') as GLTFResult
+  const { nodes, materials } = useGLTF(PUBLIC_URL + '/models/piano-draco.glb') as GLTFResult
 
   return (
     <group
@@ -163,4 +164,4 @@ export function Piano({ ...props }: JSX.IntrinsicElements['group']) {
   )
 }
 
-useGLTF.preload('/models/piano-draco.glb')
+useGLTF.preload(PUBLIC_URL + 'models/piano-draco.glb')

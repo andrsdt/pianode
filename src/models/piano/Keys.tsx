@@ -2,16 +2,17 @@ import { useGLTF } from '@react-three/drei'
 import { ThreeEvent } from '@react-three/fiber'
 import { useEffect, useRef, useState } from 'react'
 import THREE from 'three'
+import { PUBLIC_URL } from '../../consts'
 import { Midi } from '../../controls/Midi'
-import { PianoState, useStore } from '../../store'
 import { usePrevious } from '../../hooks/UsePrevious'
+import { PianoState, useStore } from '../../store'
 import { Key } from './Key'
 import { GLTFResult } from './Piano'
 import { Tone } from './Tone'
 
 export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
   const keys = useRef<THREE.Group>()
-  const { nodes, materials } = useGLTF('/models/piano-draco.glb') as GLTFResult
+  const { nodes, materials } = useGLTF(PUBLIC_URL + 'models/piano-draco.glb') as GLTFResult
 
   const [pressedKeyWithMouse, setPressedKeyWithMouse] = useState('')
   const lastPressedKeyWithMouse = usePrevious(pressedKeyWithMouse) || ''
@@ -44,7 +45,12 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
   useEffect(() => {
     !lastPressedKeyWithMouse && pressedKeyWithMouse && pressKey({ note: pressedKeyWithMouse, velocity: 1 })
     lastPressedKeyWithMouse && !pressedKeyWithMouse && releaseKey(lastPressedKeyWithMouse)
-    lastPressedKeyWithMouse && pressedKeyWithMouse && replaceKey(lastPressedKeyWithMouse, { note: pressedKeyWithMouse, velocity: 1 })
+    lastPressedKeyWithMouse &&
+      pressedKeyWithMouse &&
+      replaceKey(lastPressedKeyWithMouse, {
+        note: pressedKeyWithMouse,
+        velocity: 1,
+      })
   }, [pressedKeyWithMouse])
 
   return (
