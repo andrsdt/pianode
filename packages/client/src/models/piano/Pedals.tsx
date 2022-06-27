@@ -1,13 +1,12 @@
 import { animated, config, useSpring } from '@react-spring/three'
 import { useGLTF } from '@react-three/drei'
 import { useRef } from 'react'
-import { PUBLIC_URL } from '../../consts'
 import { PianoState, useStore } from '../../store'
 import { GLTFResult } from './Piano'
 
 export function Sustain({ ...props }: JSX.IntrinsicElements['group']) {
   const sustain = useRef<THREE.Group>()
-  const { nodes, materials } = useGLTF(PUBLIC_URL + '/models/piano-draco.glb') as GLTFResult
+  const { nodes, materials } = useGLTF('/models/piano-draco.glb') as GLTFResult
 
   const [toggleSustainButton, isSustainButtonDown, isPedalDown] = useStore((state: PianoState) => [
     state.toggleSustainButton,

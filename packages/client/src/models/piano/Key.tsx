@@ -19,14 +19,14 @@ export function Key(props: Props) {
   const rot = props.rotation
   const downRot: Props['rotation'] = [rot[0] + Math.PI / 45, rot[1], rot[2]]
 
-  const isDown = useStore((state: PianoState) => state.pressedKeys.map((k) => k.note).includes(name))
+  const isDown = useStore((state: PianoState) => state.pressedKeys.map((k) => k.key.note).includes(name))
 
   const { position, rotation } = useSpring({
     position: isDown ? downPos : pos,
     rotation: isDown ? downRot : rot,
 
     config: {
-      tension: 230,
+      tension: 200,
       friction: 13,
     },
   })
@@ -37,7 +37,7 @@ export function Key(props: Props) {
       geometry={geometry}
       material={material}
       position={position}
-      // @ts-expect-error
+      // @ts-expect-error not assignable
       rotation={rotation}
       scale={scale}
     />

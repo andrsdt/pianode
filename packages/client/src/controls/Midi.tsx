@@ -1,7 +1,11 @@
+import { useContext, useEffect } from 'react'
 import webmidi from 'webmidi'
+import { SocketContext } from '../context/socket'
 import { useStore } from '../store'
 
 export function Midi() {
+  const socketId = useContext(SocketContext).id
+
   const [pressKey, releaseKey, pressPedal, releasePedal] = useStore((state) => [state.pressKey, state.releaseKey, state.pressPedal, state.releasePedal])
 
   const setupWebmidi = () => {
@@ -11,12 +15,12 @@ export function Midi() {
 
     input.addListener('noteon', 'all', (e) => {
       const key = { note: `${e.note.name}${e.note.octave}`, velocity: e.velocity }
-      pressKey(key)
+      pressKey(key, socketId)
     })
 
     input.addListener('noteoff', 'all', (e) => {
       const key = `${e.note.name}${e.note.octave}`
-      releaseKey(key)
+      releaseKey(key, socketId)
     })
 
     // Handle pedal events. not supported natively by the webmidi library
@@ -40,13 +44,14 @@ export function Midi() {
     })
   }
 
-  webmidi.enable((err) => {
-    if (err) {
-      console.log('WebMIDI not available')
-    } else {
-      setupWebmidi()
-    }
-  })
-
+  useEffect(() => {
+    webmidi.enable((err) => {
+      if (err) {
+        console.log('WebMIDI not available')
+      } else {
+        setupWebmidi()
+      }
+    })
+  }, [])
   return null
 }

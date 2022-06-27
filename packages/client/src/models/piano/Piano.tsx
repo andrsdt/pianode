@@ -132,7 +132,7 @@ export function Piano({ ...props }: JSX.IntrinsicElements['group']) {
   const structure = useRef<THREE.Group>()
   const room = useRef<THREE.Group>()
 
-  const { nodes, materials } = useGLTF(PUBLIC_URL + '/models/piano-draco.glb') as GLTFResult
+  const { nodes, materials } = useGLTF('/models/piano-draco.glb') as GLTFResult
 
   return (
     <group
@@ -164,4 +164,4 @@ export function Piano({ ...props }: JSX.IntrinsicElements['group']) {
   )
 }
 
-useGLTF.preload(PUBLIC_URL + 'models/piano-draco.glb')
+useGLTF.preload('/models/piano-draco.glb')

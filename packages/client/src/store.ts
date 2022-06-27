@@ -1,6 +1,6 @@
 import type { SetState } from 'zustand'
 import create from 'zustand'
-import { devtools } from 'zustand/middleware'
+// import { devtools } from 'zustand/middleware'
 import { ToneKey } from './models/piano/Tone'
 
 export interface PianoState {
@@ -15,10 +15,10 @@ export interface PianoState {
   enableOrbitControls: () => void
   disableOrbitControls: () => void
 
-  pressedKeys: ToneKey[]
-  pressKey: (key: ToneKey) => void
-  releaseKey: (key: string) => void
-  replaceKey: (oldKey: string, newKey: ToneKey) => void
+  pressedKeys: { key: ToneKey; id: string }[]
+  pressKey: (key: ToneKey, id: string) => void
+  releaseKey: (note: string, id: string) => void
+  replaceKey: (oldKey: string, newKey: ToneKey, id: string) => void
 
   isPedalDown: boolean
   pressPedal: () => void
@@ -29,7 +29,8 @@ export interface PianoState {
 }
 
 export const useStore = create(
-  devtools((set: SetState<PianoState>) => ({
+  // devtools(
+  (set: SetState<PianoState>) => ({
     camera: 'tilted',
     setCamera: (camera: string) => set((_) => ({ camera })),
 
@@ -41,10 +42,13 @@ export const useStore = create(
     enableOrbitControls: () => set((_) => ({ orbitControlsEnabled: true })),
     disableOrbitControls: () => set((_) => ({ orbitControlsEnabled: false })),
 
-    pressedKeys: [], // Keys currently pressed
-    pressKey: (key: ToneKey) => set((state) => (state.pressedKeys.includes(key) ? state : { pressedKeys: [...state.pressedKeys, key] })),
-    releaseKey: (note: string) => set((state) => ({ pressedKeys: state.pressedKeys.filter((k) => k.note !== note) })),
-    replaceKey: (oldNote: string, newKey: ToneKey) => set((state) => ({ pressedKeys: [...state.pressedKeys].map((k) => (k.note === oldNote ? newKey : k)) })),
+    pressedKeys: [] as { key: ToneKey; id: string }[], // Keys currently pressed
+    pressKey: (key: ToneKey, id: string) =>
+      set((state) => (state.pressedKeys.includes({ key, id }) ? state : { pressedKeys: [...state.pressedKeys, { key, id }] })),
+    releaseKey: (note: string, id: string) => set((state) => ({ pressedKeys: state.pressedKeys.filter((k) => !(k.key.note === note && k.id === id)) })),
+
+    replaceKey: (oldNote: string, newKey: ToneKey, id: string) =>
+      set((state) => ({ pressedKeys: [...state.pressedKeys].map((k) => (k.key.note === oldNote ? { key: newKey, id } : k)) })),
 
     isPedalDown: false,
     pressPedal: () => set((_) => ({ isPedalDown: true })),
@@ -52,5 +56,6 @@ export const useStore = create(
 
     isSustainButtonDown: false,
     toggleSustainButton: () => set((state) => ({ isSustainButtonDown: !state.isSustainButtonDown, isPedalDown: !state.isSustainButtonDown })),
-  })),
+  }),
+  // ),
 )
