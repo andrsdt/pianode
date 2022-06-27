@@ -9,12 +9,17 @@ const http = require('http');
 const server = http.createServer(app);
 const { Server } = require('socket.io');
 
-const io = new Server(server, {
-  cors: {
-    origin: 'http://localhost:3000',
-    methods: ['GET', 'POST'],
-  },
-});
+// Only set up the cors middleware for localhost if we're in development
+const serverParams =
+  process.env.NODE_ENV === 'production'
+    ? {}
+    : {
+        cors: {
+          origin: 'http://localhost:3000',
+          methods: ['GET', 'POST'],
+        },
+      };
+const io = new Server(server, serverParams);
 
 io.on('connection', (socket) => {
   console.log(`User Connected: ${socket.id}`);
@@ -50,6 +55,8 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(3001, () => {
+// Heroku dynamically assigns your app a port, so we can't set the port to a fixed number
+// We can use the process.env.PORT variable to get the port number set by heroku
+server.listen(process.env.PORT || 3001, () => {
   console.log('SERVER RUNNING');
 });
