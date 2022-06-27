@@ -5,6 +5,9 @@
 		"packages/client",
 		"packages/server"
 	],
+	"engines": {
+		"npm": "8.6.0"
+	},
 	"scripts": {
 		"build": "npm run build --workspace=packages/client",
 		"start": "npm run start --workspace=packages/server",
