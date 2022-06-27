@@ -25,7 +25,11 @@ export function Sustain({ ...props }: JSX.IntrinsicElements['group']) {
   })
 
   return (
-    <group ref={sustain.current} {...props} dispose={null}>
+    <group
+      // @ts-ignore
+      ref={sustain}
+      {...props}
+      dispose={null}>
       <mesh name="bar-left" geometry={nodes['bar-left'].geometry} material={materials.Gray} position={[-123.48, -62.77, -20.07]} scale={[1.8, 53.92, 1.8]} />
       <mesh
         name="pedals-base"
@@ -40,6 +44,7 @@ export function Sustain({ ...props }: JSX.IntrinsicElements['group']) {
         geometry={nodes['pedal-right'].geometry}
         material={materials.Metallic}
         position={[-102.04, -120.82, -14.62]}
+        // @ts-ignore
         rotation={pedalRightRot}
         scale={[2.23, 2.58, 2.93]}
       />
@@ -63,6 +68,7 @@ export function Sustain({ ...props }: JSX.IntrinsicElements['group']) {
         name="sustain-button"
         geometry={nodes['sustain-button'].geometry}
         material={materials.Transparent}
+        // @ts-ignore
         position={sustainButtonPos}
         rotation={[0, 0, 0]}
         scale={[2.36, 0.45, 0.57]}

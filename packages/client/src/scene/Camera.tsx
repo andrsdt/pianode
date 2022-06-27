@@ -10,5 +10,12 @@ export function Camera() {
   }
 
   // TODO: smooth animation between coords
-  return <PerspectiveCamera makeDefault position={availableCameras[currentCamera as keyof typeof availableCameras]} fov={40} />
+  return (
+    <PerspectiveCamera
+      makeDefault
+      // @ts-ignore
+      position={availableCameras[currentCamera as keyof typeof availableCameras]}
+      fov={40}
+    />
+  )
 }
