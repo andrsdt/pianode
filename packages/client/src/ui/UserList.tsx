@@ -7,7 +7,6 @@ export function UserList() {
 
   useEffect(() => {
     socket.on('users', (us) => {
-      console.log(us)
       setUsers(us)
     })
 

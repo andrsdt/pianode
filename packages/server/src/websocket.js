@@ -8,24 +8,40 @@ const io = new Server(server, {
   },
 });
 
-const { getUsersInRoom, removeUser } = require('./user');
+const { getUsersInRoom, removeUser, addUser } = require('./user');
+const validators = require('./validators');
 
 io.on('connection', (socket) => {
-  console.log(`User Connected: ${socket.id}`);
+  socket.on('join_room', async (e, callback) => {
+    const { timestamp, id, username, room } = e;
 
-  socket.on('join_room', async ({ room }) => {
+    if (
+      !validators.room(socket, room) ||
+      !validators.username(socket, username)
+    ) {
+      callback({ status: 'error' });
+      return;
+    }
+
     await socket.join(room);
-    // TODO: there is no "addUser(id)" here because
-    // this is being handled via HTTP in the api.js file
-    // To be refactored in the future to use sockets too
+    addUser(timestamp, id, username, room);
     io.to(room).emit('users', getUsersInRoom(room));
+    callback({ status: 'ok' });
   });
 
-  socket.on('leave_room', async ({ room }) => {
+  socket.on('leave_room', async (e, callback) => {
+    const { room } = e;
+
+    if (!validators.room(socket, room)) {
+      callback({ status: 'error' });
+      return;
+    }
+
     await socket.leave(room);
     const { id } = socket;
     removeUser(id);
     io.to(room).emit('users', getUsersInRoom(room));
+    callback({ status: 'ok' });
   });
 
   socket.on('key_down', (e) => {
@@ -49,6 +65,5 @@ io.on('connection', (socket) => {
     const { room } = removeUser(id);
     // Send the users in the room the new list
     io.to(room).emit('users', getUsersInRoom(room));
-    console.log('User Disconnected', socket.id);
   });
 });

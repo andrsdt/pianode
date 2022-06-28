@@ -2,8 +2,8 @@ const users = {};
 
 const addUser = (timestamp, id, username, room) => {
   // key is the timestamp of the connection, value is the user object ({id, username, room})
+  // Will replace the user with its new data if it already exists
   users[timestamp] = { id, username, room };
-  console.log({ users });
 };
 
 const removeUser = (id) => {
@@ -23,8 +23,8 @@ const removeUser = (id) => {
 
 const getUserByTimestamp = (id) => users[id];
 
+// Return an array of users that are in the room
 const getUsersInRoom = (room) =>
-  // Return an array of users that are in the room
   Object.values(users)
     .filter((user) => user.room === room)
     .map((user) => user.username);

@@ -6,10 +6,12 @@ import { socket, SocketContext } from './context/socket'
 import './index.css'
 import { Join } from './screens/Join'
 import { Room } from './screens/Room'
+import { Notifications } from './ui/Notifications'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <SocketContext.Provider value={socket}>
+      <Notifications />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />} />

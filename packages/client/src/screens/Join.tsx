@@ -6,27 +6,30 @@ export function Join() {
   const navigate = useNavigate()
   const socket = useContext(SocketContext)
 
-  const [username, setUsername] = useState('')
-  const [room, setRoom] = useState('')
+  const [username, setUsername] = useState(sessionStorage.getItem('username') || '')
+  const [room, setRoom] = useState(sessionStorage.getItem('room') || '')
 
   return (
     <div>
       Room
       <input
         type="text"
-        placeholder="0000"
         id="room-input"
+        placeholder="00000"
+        inputMode="numeric"
+        defaultValue={room}
         onChange={(e) => {
-          setRoom(e.target.value || '')
+          setRoom(e.target.value)
         }}
       />
       Username
       <input
         type="text"
-        placeholder="Guest"
         id="username-input"
+        placeholder="Guest"
+        defaultValue={username}
         onChange={(e) => {
-          setUsername(e.target.value || '')
+          setUsername(e.target.value)
         }}
       />
       <button
