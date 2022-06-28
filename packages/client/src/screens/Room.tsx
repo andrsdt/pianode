@@ -27,14 +27,17 @@ export function Room() {
   }
 
   useEffect(() => {
+    // If the user joins directly to the room but does not have a username,
+    // redirect to the join screen but store the room in sessionStorage
+    // so that the room can be pre-filled when the user returns to the join screen.
+    if (room) sessionStorage.setItem('room', room)
+
     // Make sure that the user has a name and is in a valid room
     if (!username || !room) {
       navigate('/join')
     } else {
       socket.emit('join_room', { timestamp, id: socket.id, username, room }, handleResponse)
-
       sessionStorage.setItem('timestamp', timestamp)
-      sessionStorage.setItem('room', room)
     }
 
     // Inform the server that the user has left the room

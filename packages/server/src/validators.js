@@ -1,26 +1,16 @@
-const validators = {
+// TODO: import without relative path
+import { validate } from '../../shared/src/validate';
+
+export const validators = {
   room: (socket, room) => {
-    const isValid = room.match(/^\d{5}$/);
-    if (!isValid) {
-      socket.emit('notification', {
-        type: 'error',
-        id: 'room-invalid',
-        message: 'Invalid room code. Must be of the type "12345"',
-      });
-    }
+    const { isValid, toast } = validate.room(room);
+    if (!isValid) socket.emit('notification', toast);
     return isValid;
   },
 
   username: (socket, username) => {
-    const isValid = username.match(/^\w+$/);
-    if (!isValid) {
-      socket.emit('notification', {
-        type: 'error',
-        id: 'username-invalid',
-        message: 'Invalid username. Must only contain letters or numbers',
-      });
-    }
+    const { isValid, toast } = validate.username(username);
+    if (!isValid) socket.emit('notification', toast);
     return isValid;
   },
 };
-module.exports = validators;

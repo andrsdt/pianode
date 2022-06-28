@@ -1,6 +1,10 @@
 import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SocketContext } from '../context/socket'
+// @ts-expect-error tbd type declarations
+import { validate } from '../../../shared/src/validate'
+
+import { putToast } from '../ui/toast'
 
 export function Join() {
   const navigate = useNavigate()
@@ -8,6 +12,14 @@ export function Join() {
 
   const [username, setUsername] = useState(sessionStorage.getItem('username') || '')
   const [room, setRoom] = useState(sessionStorage.getItem('room') || '')
+
+  const handleSubmit = () => {
+    sessionStorage.setItem('username', username)
+    const validations = [validate.room(room), validate.username(username)]
+    validations.forEach((v) => !v.isValid && putToast(v.toast))
+    if (validations.some((v) => !v.isValid)) return
+    navigate(`/rooms/${room}`)
+  }
 
   return (
     <div>
@@ -32,13 +44,7 @@ export function Join() {
           setUsername(e.target.value)
         }}
       />
-      <button
-        id="join-room-button"
-        disabled={!socket.id || !username || !room}
-        onClick={() => {
-          sessionStorage.setItem('username', username)
-          navigate(`/rooms/${room}`)
-        }}>
+      <button id="join-room-button" disabled={!socket.id || !username || !room} onClick={handleSubmit}>
         Join
       </button>
     </div>

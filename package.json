@@ -3,7 +3,8 @@
 	"private": true,
 	"workspaces": [
 		"packages/client",
-		"packages/server"
+		"packages/server",
+		"packages/shared"
 	],
 	"engines": {
 		"npm": "8.6.0"

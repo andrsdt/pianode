@@ -1,5 +1,7 @@
-const { Server } = require('socket.io');
-const { server } = require('./app');
+import { Server } from 'socket.io';
+import { server } from './app';
+import { validators } from './validators';
+import { getUsersInRoom, removeUser, addUser } from './user';
 
 const io = new Server(server, {
   cors: {
@@ -7,9 +9,6 @@ const io = new Server(server, {
     methods: ['GET', 'POST'],
   },
 });
-
-const { getUsersInRoom, removeUser, addUser } = require('./user');
-const validators = require('./validators');
 
 io.on('connection', (socket) => {
   socket.on('join_room', async (e, callback) => {

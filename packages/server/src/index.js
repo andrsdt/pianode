@@ -1,5 +1,5 @@
-const { server } = require('./app');
-require('./websocket'); // Run the websocket code
+import { server } from './app';
+import './websocket'; // Run the websocket code
 
 // Heroku dynamically assigns your app a port, so we can't set the port to a fixed number
 // We can use the process.env.PORT variable to get the port number set by heroku
