@@ -8,18 +8,25 @@
 	"engines": {
 		"npm": "8.6.0"
 	},
+	"type": "module",
 	"scripts": {
 		"build": "npm run build --workspace=packages/client",
 		"start": "npm run start --workspace=packages/server",
 		"dev:server": "npm run build && npm run dev --workspace=packages/server"
 	},
-	"dependencies": {},
 	"devDependencies": {
+		"@types/react-router-dom": "^5.3.3",
+		"cz-conventional-changelog": "^3.3.0",
 		"eslint": "^8.2.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-import": "^2.25.3",
-		"eslint-plugin-prettier": "^4.0.0",
-		"cz-conventional-changelog": "^3.3.0"
+		"eslint-plugin-prettier": "^4.0.0"
+	},
+	"eslintConfig": {
+		"parserOptions": {
+			"tsconfigRootDir": "./packages/client",
+			"sourceType": "module"
+		}
 	},
 	"config": {
 		"commitizen": {

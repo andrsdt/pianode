@@ -4,10 +4,9 @@
 */
 
 import { useGLTF } from '@react-three/drei'
-import { useRef } from 'react'
+import { Suspense, useRef } from 'react'
 import * as THREE from 'three'
 import { GLTF } from 'three-stdlib'
-import { PUBLIC_URL } from '../../consts'
 import { Keys } from './Keys'
 import { Sustain } from './Pedals'
 
@@ -135,32 +134,34 @@ export function Piano({ ...props }: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('/models/piano-draco.glb') as GLTFResult
 
   return (
-    <group
-      // @ts-expect-error
-      ref={piano}
-      {...props}
-      dispose={null}>
-      <Keys />
+    <Suspense>
       <group
         // @ts-expect-error
-        ref={structure}
+        ref={piano}
         {...props}
         dispose={null}>
-        <mesh name="felt" geometry={nodes.felt.geometry} material={materials.Material} position={[-116.27, 2.44, -13.68]} scale={[117.38, 1, 1]} />
-        <mesh name="base" geometry={nodes.base.geometry} material={materials.Gray} position={[-116.58, -3.17, -1.61]} scale={[118.2, 24.13, -14.22]} />
-        <mesh name="panel" geometry={nodes.panel.geometry} material={materials.Gray} position={[-116.85, -43.52, -16.3]} scale={[118.41, 11.41, -1.15]} />
-        <mesh name="andrsdt" geometry={nodes.andrsdt.geometry} material={materials.White} position={[-6.24, 5.09, -20.63]} scale={0.9} />
-        <mesh name="github-logo" geometry={nodes['github-logo'].geometry} material={materials.White} position={[-20.33, 5.11, -20.46]} scale={13.72} />
-        <Sustain />
+        <Keys />
+        <group
+          // @ts-expect-error
+          ref={structure}
+          {...props}
+          dispose={null}>
+          <mesh name="felt" geometry={nodes.felt.geometry} material={materials.Material} position={[-116.27, 2.44, -13.68]} scale={[117.38, 1, 1]} />
+          <mesh name="base" geometry={nodes.base.geometry} material={materials.Gray} position={[-116.58, -3.17, -1.61]} scale={[118.2, 24.13, -14.22]} />
+          <mesh name="panel" geometry={nodes.panel.geometry} material={materials.Gray} position={[-116.85, -43.52, -16.3]} scale={[118.41, 11.41, -1.15]} />
+          <mesh name="andrsdt" geometry={nodes.andrsdt.geometry} material={materials.White} position={[-6.24, 5.09, -20.63]} scale={0.9} />
+          <mesh name="github-logo" geometry={nodes['github-logo'].geometry} material={materials.White} position={[-20.33, 5.11, -20.46]} scale={13.72} />
+          <Sustain />
+        </group>
+        <group
+          // @ts-expect-error
+          ref={room}
+          {...props}
+          dispose={null}>
+          <mesh name="walls" geometry={nodes.walls.geometry} material={materials.White} position={[-114.86, -2.49, 129.8]} scale={[173.22, 122.32, 173.22]} />
+        </group>
       </group>
-      <group
-        // @ts-expect-error
-        ref={room}
-        {...props}
-        dispose={null}>
-        <mesh name="walls" geometry={nodes.walls.geometry} material={materials.White} position={[-114.86, -2.49, 129.8]} scale={[173.22, 122.32, 173.22]} />
-      </group>
-    </group>
+    </Suspense>
   )
 }
 
