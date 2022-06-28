@@ -15,8 +15,16 @@ io.on('connection', (socket) => {
 
   socket.on('join_room', async ({ room }) => {
     await socket.join(room);
-    // Send the users in the room the new list
-    console.log(`notifying users in ${room}`);
+    // TODO: there is no "addUser(id)" here because
+    // this is being handled via HTTP in the api.js file
+    // To be refactored in the future to use sockets too
+    io.to(room).emit('users', getUsersInRoom(room));
+  });
+
+  socket.on('leave_room', async ({ room }) => {
+    await socket.leave(room);
+    const { id } = socket;
+    removeUser(id);
     io.to(room).emit('users', getUsersInRoom(room));
   });
 

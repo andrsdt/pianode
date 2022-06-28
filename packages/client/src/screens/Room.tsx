@@ -1,6 +1,6 @@
 import { OrbitControls } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
-import axios from 'axios'
+import axios from '../axios/axios'
 import { useContext, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { SocketContext } from '../context/socket'
@@ -32,7 +32,7 @@ export function Room() {
 
     // TODO: simplify the code using Acknowledgements
     // https://socket.io/docs/v3/emitting-events/#acknowledgements
-    const res = await axios.post('http://localhost:3001/api/rooms', {
+    const res = await axios.post('/api/rooms', {
       timestamp,
       id: socket.id,
       username,
@@ -51,7 +51,7 @@ export function Room() {
   }
 
   const joinIfMissing = async () => {
-    const res = await axios.get(`http://localhost:3001/api/rooms/${room}`)
+    const res = await axios.get(`/api/rooms/${room}`)
     if (res.status !== 200) navigate('/join')
     const usersInRoom = res.data
     if (!usersInRoom.includes(username)) {
@@ -64,6 +64,12 @@ export function Room() {
     // Make sure that the user has a name
     if (!username || !room) navigate('/join')
     joinIfMissing()
+
+    // Inform the server that the user has left the room
+    return () => {
+      console.log('leaving screen')
+      socket.emit('leave_room', { room })
+    }
   }, [])
 
   return (
