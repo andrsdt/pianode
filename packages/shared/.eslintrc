@@ -1,11 +1,32 @@
 {
-  "extends": ["airbnb-base", "prettier"],
-  "plugins": ["prettier"],
+  "extends": [
+    "airbnb-typescript",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["import", "@typescript-eslint"],
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "node": true
+  },
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": ["./packages/shared/tsconfig.json"]
   },
   "rules": {
-    "import/prefer-default-export": "off"
+    "linebreak-style": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+
+    "prettier/prettier": [
+      "warn",
+      {
+        "endOfLine": "auto"
+      }
+    ]
   }
 }

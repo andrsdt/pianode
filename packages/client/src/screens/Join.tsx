@@ -1,8 +1,7 @@
 import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SocketContext } from '../context/socket'
-// @ts-expect-error tbd type declarations
-import { validate } from '../../../shared/src/validate'
+import { validate } from 'shared'
 
 import { putToast } from '../ui/toast'
 

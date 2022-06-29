@@ -1,5 +1,4 @@
-// TODO: import without relative path
-import { validate } from '../../shared/src/validate';
+import { validate } from 'shared';
 
 export const validators = {
   room: (socket, room) => {

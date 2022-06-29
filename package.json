@@ -11,7 +11,7 @@
 	},
 	"type": "module",
 	"scripts": {
-		"build": "npm run build --workspace=packages/client",
+		"build": "npm run build --workspace=packages/shared && npm run build --workspace=packages/client",
 		"start": "npm run start --workspace=packages/server",
 		"dev:server": "npm run build && npm run dev --workspace=packages/server"
 	},
@@ -21,13 +21,8 @@
 		"eslint": "^8.2.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-import": "^2.25.3",
-		"eslint-plugin-prettier": "^4.0.0"
-	},
-	"eslintConfig": {
-		"parserOptions": {
-			"tsconfigRootDir": "./packages/client",
-			"sourceType": "module"
-		}
+		"eslint-plugin-prettier": "^4.0.0",
+		"typescript": "^4.7.4"
 	},
 	"config": {
 		"commitizen": {
