@@ -1,4 +1,5 @@
 import toast, { ToastOptions } from 'react-hot-toast'
+import { ToasterProps } from 'react-hot-toast/dist/core/types'
 
 export interface Notification {
   message: string
@@ -6,20 +7,24 @@ export interface Notification {
   type: string
 }
 
-const defaultOptions = { position: 'top-right' } as ToastOptions
+// Defaults for the toaster itself
+export const defaultToasterProps = { position: 'top-center', reverseOrder: true } as ToasterProps
+
+// Defaults for each individual toast, in case they are not specified
+const defaultToastOptions = {} as ToastOptions
 
 export const toasts = {
   info: {
     function: toast,
-    options: defaultOptions,
+    options: defaultToastOptions,
   },
   success: {
     function: toast.success,
-    options: defaultOptions,
+    options: defaultToastOptions,
   },
   error: {
     function: toast.error,
-    options: defaultOptions,
+    options: defaultToastOptions,
   },
 }
 

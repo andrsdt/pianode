@@ -16,7 +16,7 @@
     },
     "ecmaVersion": 2018,
     "sourceType": "module",
-    "project": "./tsconfig.json"
+    "project": ["./packages/client/tsconfig.json"]
   },
   "rules": {
     "linebreak-style": "off",

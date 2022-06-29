@@ -4,17 +4,17 @@ export const validate = {
     const toast = {
       type: "error",
       id: "username-invalid",
-      message: "Invalid username. Must only contain letters or numbers",
+      message: "Must be alphanumeric",
     };
     return isValid ? { isValid, toast: null } : { isValid, toast };
   },
 
   room: (room: string) => {
-    const isValid = /^\d{5}$/.test(room);
+    const isValid = /^\d{4}$/.test(room);
     const toast = {
       type: "error",
       id: "room-invalid",
-      message: 'Invalid room code. Must be of the type "12345"',
+      message: "Must be 4 digits long",
     };
     return isValid ? { isValid, toast: null } : { isValid, toast };
   },

@@ -1,4 +1,5 @@
 import { Server } from 'socket.io';
+import { toasts } from 'shared';
 import { server } from './app';
 import { validators } from './validators';
 import { getUsersInRoom, removeUser, addUser } from './user';
@@ -12,7 +13,7 @@ const io = new Server(server, {
 
 io.on('connection', (socket) => {
   socket.on('join_room', async (e, callback) => {
-    const { timestamp, id, username, room } = e;
+    const { timestamp, username, room } = e;
 
     if (
       !validators.room(socket, room) ||
@@ -23,8 +24,11 @@ io.on('connection', (socket) => {
     }
 
     await socket.join(room);
-    addUser(timestamp, id, username, room);
+    addUser(timestamp, socket.id, username, room);
     io.to(room).emit('users', getUsersInRoom(room));
+    io.to(room)
+      .except(socket.id)
+      .emit('notification', toasts.info.joinRoom(username));
     callback({ status: 'ok' });
   });
 
@@ -38,8 +42,18 @@ io.on('connection', (socket) => {
 
     await socket.leave(room);
     const { id } = socket;
-    removeUser(id);
+    const user = removeUser(id);
+
+    // if the user is not in the room, return an error
+    if (!user.username || user.room !== room) {
+      callback({ status: 'error' });
+      return;
+    }
+
     io.to(room).emit('users', getUsersInRoom(room));
+    io.to(room)
+      .except(socket.id)
+      .emit('notification', toasts.info.leaveRoom(user.username));
     callback({ status: 'ok' });
   });
 
@@ -61,8 +75,11 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     const { id } = socket;
-    const { room } = removeUser(id);
+    const { username, room } = removeUser(id);
     // Send the users in the room the new list
     io.to(room).emit('users', getUsersInRoom(room));
+    io.to(room)
+      .except(socket.id)
+      .emit('notification', toasts.info.leaveRoom(username));
   });
 });

@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { SocketContext } from '../context/socket'
-import { putToast } from './toast'
+import { defaultToasterProps, putToast } from './toast'
 
 export function Notifications() {
   const socket = useContext(SocketContext)
@@ -22,5 +22,5 @@ export function Notifications() {
     }
   }, [socket])
 
-  return <Toaster />
+  return <Toaster {...defaultToasterProps} />
 }
