@@ -1,4 +1,3 @@
-import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { SocketContext, socket } from './context/socket'
 import { Landing } from './screens/Landing'
