@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { SocketContext } from '../context/socket'
 import { usePrevious } from '../hooks/UsePrevious'
 import { ToneKey } from '../models/piano/Tone'
@@ -37,8 +37,7 @@ export function Online(params: { room: string | undefined }) {
 
   useEffect(() => {
     // TODO: take the socketId from the server instead of sending it in the request
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    isPedalDown ? socket.emit('pedal_down', { id: socketId, room }) : socket.emit('pedal_up', { id: socketId, room })
+    socket.emit(isPedalDown ? 'pedal_down' : 'pedal_up', { id: socketId, room })
   }, [isPedalDown])
 
   // HANDLE RECEIVING

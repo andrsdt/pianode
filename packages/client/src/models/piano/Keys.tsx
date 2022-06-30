@@ -53,7 +53,8 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
   return (
     <>
       <group
-        // @ts-expect-error ts-missing-tsdoc
+        name="keys"
+        // @ts-expect-error allow mutable refs
         ref={keys}
         {...props}
         dispose={null}
@@ -65,7 +66,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="G7"
           geometry={nodes.G7.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-15.6, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -73,7 +74,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="F7"
           geometry={nodes.F7.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-20.07, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -81,7 +82,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="E7"
           geometry={nodes.E7.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-24.55, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -89,7 +90,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="D7"
           geometry={nodes.D7.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-29.02, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -97,7 +98,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="C7"
           geometry={nodes.C7.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-33.5, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -105,7 +106,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="B6"
           geometry={nodes.B6.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-37.97, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -113,7 +114,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="A6"
           geometry={nodes.A6.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-42.45, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -121,7 +122,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="G6"
           geometry={nodes.G6.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-46.92, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -129,7 +130,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="F6"
           geometry={nodes.F6.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-51.39, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -137,7 +138,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="E6"
           geometry={nodes.E6.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-55.87, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -145,7 +146,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="D6"
           geometry={nodes.D6.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-60.34, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -153,7 +154,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="C6"
           geometry={nodes.C6.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-64.82, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -161,7 +162,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="B5"
           geometry={nodes.B5.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-69.29, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -169,7 +170,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="A5"
           geometry={nodes.A5.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-73.77, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -177,7 +178,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="G5"
           geometry={nodes.G5.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-78.24, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -185,7 +186,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="F5"
           geometry={nodes.F5.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-82.71, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -193,7 +194,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="E5"
           geometry={nodes.E5.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-87.19, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -201,7 +202,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="D5"
           geometry={nodes.D5.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-91.66, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -209,7 +210,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="C5"
           geometry={nodes.C5.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-96.14, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -217,7 +218,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="B4"
           geometry={nodes.B4.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-100.61, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -225,7 +226,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="A4"
           geometry={nodes.A4.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-105.09, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -233,7 +234,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="G4"
           geometry={nodes.G4.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-109.56, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -241,7 +242,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="F4"
           geometry={nodes.F4.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-114.04, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -249,7 +250,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="E4"
           geometry={nodes.E4.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-118.51, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -257,7 +258,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="D4"
           geometry={nodes.D4.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-122.98, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -265,7 +266,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="C4"
           geometry={nodes.C4.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-127.46, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -273,7 +274,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="B3"
           geometry={nodes.B3.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-131.93, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -281,7 +282,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="A3"
           geometry={nodes.A3.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-136.41, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -289,7 +290,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="G3"
           geometry={nodes.G3.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-140.88, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -297,7 +298,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="F3"
           geometry={nodes.F3.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-145.35, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -305,7 +306,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="E3"
           geometry={nodes.E3.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-149.83, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -313,7 +314,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="D3"
           geometry={nodes.D3.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-154.3, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -321,7 +322,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="C3"
           geometry={nodes.C3.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-158.78, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -329,7 +330,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="B2"
           geometry={nodes.B2.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-163.25, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -337,7 +338,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="A2"
           geometry={nodes.A2.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-167.73, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -345,7 +346,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="G2"
           geometry={nodes.G2.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-172.2, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -353,7 +354,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="F2"
           geometry={nodes.F2.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-176.68, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -361,7 +362,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="E2"
           geometry={nodes.E2.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-181.15, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -369,7 +370,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="D2"
           geometry={nodes.D2.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-185.62, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -377,7 +378,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="C2"
           geometry={nodes.C2.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-190.1, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -385,7 +386,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="B1"
           geometry={nodes.B1.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-194.57, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -393,7 +394,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="A1"
           geometry={nodes.A1.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-199.05, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -401,7 +402,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="G1"
           geometry={nodes.G1.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-203.52, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -409,7 +410,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="F1"
           geometry={nodes.F1.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-208, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -417,7 +418,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="E1"
           geometry={nodes.E1.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-212.47, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -425,7 +426,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="D1"
           geometry={nodes.D1.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-216.94, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -433,7 +434,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="C1"
           geometry={nodes.C1.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-221.42, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -441,7 +442,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="B0"
           geometry={nodes.B0.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-225.71, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -449,7 +450,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="A0"
           geometry={nodes.A0.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-230.35, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -457,7 +458,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="F#7"
           geometry={nodes['F#7'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-17.87, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -465,7 +466,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="D#7"
           geometry={nodes['D#7'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-26.81, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -473,7 +474,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="C#7"
           geometry={nodes['C#7'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-31.28, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -481,7 +482,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="A#7"
           geometry={nodes['A#7'].geometry}
           material={materials.Black}
-          position={[-86.98, 3, -12.2]}
+          position={[-8.91, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -489,7 +490,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="G#7"
           geometry={nodes['G#7'].geometry}
           material={materials.Black}
-          position={[-86.98, 3, -12.2]}
+          position={[-13.38, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -497,7 +498,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="F#6"
           geometry={nodes['F#6'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-49.17, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -505,7 +506,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="D#6"
           geometry={nodes['D#6'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-58.11, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -513,7 +514,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="C#6"
           geometry={nodes['C#6'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-62.59, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -521,7 +522,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="A#5"
           geometry={nodes['A#5'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-71.53, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -529,7 +530,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="G#5"
           geometry={nodes['G#5'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-76, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -537,7 +538,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="F#5"
           geometry={nodes['F#5'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-80.47, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -545,7 +546,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="D#5"
           geometry={nodes['D#5'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-89.41, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -553,7 +554,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="C#5"
           geometry={nodes['C#5'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-93.89, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -561,7 +562,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="A#4"
           geometry={nodes['A#4'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-102.83, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -569,7 +570,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="G#4"
           geometry={nodes['G#4'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-107.3, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -577,7 +578,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="F#4"
           geometry={nodes['F#4'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-111.77, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -585,7 +586,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="D#4"
           geometry={nodes['D#4'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-120.71, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -593,7 +594,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="C#4"
           geometry={nodes['C#4'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-125.19, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -601,7 +602,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="A#3"
           geometry={nodes['A#3'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-134.13, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -609,7 +610,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="G#3"
           geometry={nodes['G#3'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-138.6, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -617,7 +618,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="F#3"
           geometry={nodes['F#3'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-143.07, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -625,7 +626,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="D#3"
           geometry={nodes['D#3'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-152.01, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -633,7 +634,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="C#3"
           geometry={nodes['C#3'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-156.49, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -641,7 +642,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="A#2"
           geometry={nodes['A#2'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-165.43, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -649,7 +650,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="G#2"
           geometry={nodes['G#2'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-169.9, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -657,7 +658,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="F#2"
           geometry={nodes['F#2'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-174.37, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -665,7 +666,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="D#2"
           geometry={nodes['D#2'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-183.32, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -673,7 +674,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="C#2"
           geometry={nodes['C#2'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-187.79, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -681,7 +682,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="A#1"
           geometry={nodes['A#1'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-196.73, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -689,7 +690,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="G#1"
           geometry={nodes['G#1'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-201.2, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -697,7 +698,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="F#1"
           geometry={nodes['F#1'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-205.67, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -705,7 +706,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="D#1"
           geometry={nodes['D#1'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-214.62, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -713,7 +714,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="C#1"
           geometry={nodes['C#1'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-219.09, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -721,7 +722,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="A#0"
           geometry={nodes['A#0'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-228.03, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -729,7 +730,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="G#6"
           geometry={nodes['G#6'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-44.7, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -737,7 +738,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="B7"
           geometry={nodes.B7.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-6.66, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -745,7 +746,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="A7"
           geometry={nodes.A7.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-11.13, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />
@@ -753,7 +754,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="A#6"
           geometry={nodes['A#6'].geometry}
           material={materials.Black}
-          position={[-118.3, 3, -12.2]}
+          position={[-40.23, 1.98, -13.33]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[0.79, 1, 1.04]}
         />
@@ -761,7 +762,7 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
           name="C8"
           geometry={nodes.C8.geometry}
           material={materials.White}
-          position={[-118.6, 0.6, -10.9]}
+          position={[-2.18, 1.98, -13.33]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[12.63, 2.5, 2.21]}
         />

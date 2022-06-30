@@ -26,7 +26,8 @@ export function Sustain({ ...props }: JSX.IntrinsicElements['group']) {
 
   return (
     <group
-      // @ts-ignore
+      name="sustain"
+      // @ts-expect-error allow mutable refs
       ref={sustain}
       {...props}
       dispose={null}>
@@ -44,8 +45,8 @@ export function Sustain({ ...props }: JSX.IntrinsicElements['group']) {
         geometry={nodes['pedal-right'].geometry}
         material={materials.Metallic}
         position={[-102.04, -120.82, -14.62]}
-        // @ts-ignore
-        rotation={pedalRightRot}
+        // Workaround for intentional conversion to [number, number, number]
+        rotation={pedalRightRot as unknown as [number, number, number]}
         scale={[2.23, 2.58, 2.93]}
       />
       <mesh

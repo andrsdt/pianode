@@ -1,6 +1,5 @@
 import { OrbitControls } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
-import { motion } from 'framer-motion'
 import { useContext, useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -63,7 +62,7 @@ export function Room() {
           maxDistance={300}
           minDistance={40}
           target={[-116, 0.6, -10.9]}
-          enablePan={false}
+          enablePan={true} // TODO: disable
         />
         <ambientLight intensity={1} />
         <directionalLight color="#fcaa44" position={[0, 120, 205]} intensity={2} />

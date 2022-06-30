@@ -7,7 +7,7 @@ import { UserList } from './UserList'
 export function UserInterface() {
   const socket = useContext(SocketContext)
   const [users, setUsers] = useState([])
-  const [showUserList, setShowUserList] = useState(false)
+  const [showUserList, setShowUserList] = useState(true)
   const username = sessionStorage.getItem('username')
 
   useEffect(() => {
