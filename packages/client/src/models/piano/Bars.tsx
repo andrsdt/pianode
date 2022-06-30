@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Group, Mesh } from 'three'
 import { PianoState, useStore } from '../../store'
 
-const SECONDS_VISIBLE = 10 // How long the bars are is visible since the moment the key is released
+const SECONDS_VISIBLE = 10 * 1000 // How long the bars are is visible since the moment the key is released
 const BAR_SPEED = 0.1 // How fast the bars move
 
 interface IBar {
