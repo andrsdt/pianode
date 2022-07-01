@@ -11,6 +11,7 @@ const tone = new Piano({
   velocities: 1,
   // Increase for more precision when using a MIDI device with weighted keys.
   // Keyboard and mouse controls will only use one velocity
+  maxPolyphony: 88,
 })
 
 tone.toDestination()
