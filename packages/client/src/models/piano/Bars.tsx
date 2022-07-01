@@ -1,10 +1,10 @@
 import { useFrame } from '@react-three/fiber'
-import { useEffect, useRef, useState } from 'react'
-import { Group, Mesh } from 'three'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { BoxBufferGeometry, Group, Mesh, MeshBasicMaterial } from 'three'
 import { PianoState, useStore } from '../../store'
 
 const SECONDS_VISIBLE = 10 * 1000 // How long the bars are is visible since the moment the key is released
-const BAR_SPEED = 0.1 // How fast the bars move
+const BAR_SPEED = 0.3 // How fast the bars move
 
 interface IBar {
   startMoment: number
@@ -18,6 +18,11 @@ const isBlackKey = (note: string) => note.includes('#')
 function Bar(props: { keyModel: Mesh; isActive: boolean }) {
   const { keyModel, isActive } = props
   const mesh = useRef()
+  // Creating objects in three.js can be computationally expensive. Use useMemo() to cache
+  // the objects and avoid creating them again if they haven't changed.
+  // https://docs.pmnd.rs/react-three-fiber/advanced/pitfalls
+  const geom = useMemo(() => new BoxBufferGeometry(0.5, 0.1, keyModel.scale.z * 2), [])
+  const mat = useMemo(() => new MeshBasicMaterial({ color: 'green' }), [])
 
   // This reference will give us direct access to the mesh
   // Set up state for the hovered and active state
@@ -28,7 +33,7 @@ function Bar(props: { keyModel: Mesh; isActive: boolean }) {
   useFrame(() => {
     if (!mesh.current) return
     const current = mesh.current as Mesh
-    current.position.y += isActive ? BAR_SPEED / 5 : BAR_SPEED / 2
+    current.position.y += isActive ? BAR_SPEED / 5 : BAR_SPEED / 2.45
     if (isActive) current.scale.y += BAR_SPEED * 4
   })
 
@@ -39,10 +44,10 @@ function Bar(props: { keyModel: Mesh; isActive: boolean }) {
       // @ts-expect-error allow mutable refs
       ref={mesh}
       position={[keyModel.position.x, 2, keyModel.position.z - (isBlackKey(keyModel.name) ? 0 : 0.35)]}
-      rotation={[0, Math.PI / 2, 0]}>
-      <boxGeometry args={[0.5, 0.1, keyModel.scale.z * 2]} />
-      <meshStandardMaterial color={'green'} />
-    </mesh>
+      rotation={[0, Math.PI / 2, 0]}
+      geometry={geom}
+      material={mat}
+    />
   )
 }
 
@@ -51,7 +56,7 @@ export function Bars(props: { piano: Group }) {
   const pianoKeys = piano.children.find((child) => child.name === 'keys') as Group
   const [bars, setBars] = useState<IBar[]>([])
 
-  const pressedKeys = useStore((state: PianoState) => state.pressedKeys)
+  const [pressedKeys, camera] = useStore((state: PianoState) => [state.pressedKeys, state.camera])
 
   useEffect(() => {
     // Copy the current state of bars
@@ -88,8 +93,11 @@ export function Bars(props: { piano: Group }) {
     }
   }, [pressedKeys])
 
+  // If using top camera, the bars should be rendered on the top of the piano and moving outwards
+  const isTopCamera = camera === 'top'
+
   return (
-    <group>
+    <group position={isTopCamera ? [0, 18.6, -11.5] : [0, 0, 0]} rotation={isTopCamera ? [-Math.PI / 2, 0, 0] : [0, 0, 0]}>
       {bars.map((b) => (
         // TODO: change the unique key to be somethig more meaningful
         <Bar key={`${b.keyModel.name} ${b.startMoment}`} keyModel={b.keyModel} isActive={b.isActive} />

@@ -168,11 +168,9 @@ export function Piano({ ...props }: JSX.IntrinsicElements['group']) {
             material={nodes.walls.material}
             position={[-114.86, -2.49, 129.8]}
             scale={[361.21, 122.32, 202.34]}
-          />{' '}
+          />
         </group>
       </group>
     </Suspense>
   )
 }
-
-useGLTF.preload('/piano-transformed.glb')

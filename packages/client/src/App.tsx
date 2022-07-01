@@ -1,11 +1,15 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { SocketContext, socket } from './context/socket'
+import { useGLTF } from '@react-three/drei'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { socket, SocketContext } from './context/socket'
+import { Join } from './screens/Join'
 import { Landing } from './screens/Landing'
 import { Room } from './screens/Room'
 import { Notifications } from './ui/Notifications'
-import { Join } from './screens/Join'
 
 function App() {
+  // Preload the piano model so that the user doesn't have to wait for it to load
+  useGLTF.preload('/models/piano-draco.glb')
+
   return (
     <SocketContext.Provider value={socket}>
       <Notifications />
