@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { validate } from 'shared'
 import { PinGroup } from '../components/PinGroup'
 
-export function Welcome() {
+export function Home() {
   const navigate = useNavigate()
   const [username, setUsername] = useState(sessionStorage.getItem('username') || '')
   const [room, setRoom] = useState(sessionStorage.getItem('room') || '')
