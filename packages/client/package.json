@@ -10,9 +10,6 @@
     "lint": "tsc --noEmit && eslint src/**/*.ts{,x}"
   },
   "dependencies": {
-    "@chakra-ui/icons": "^2.0.2",
-    "@chakra-ui/react": "^2.2.1",
-    "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@react-spring/three": "^9.4.5",
     "@react-three/drei": "^9.13.2",

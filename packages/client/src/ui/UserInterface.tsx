@@ -43,7 +43,7 @@ export function UserInterface() {
           <button
             type="button"
             className="py-2 px-2.5 bg-slate-400 hover:bg-slate-500 text-slate-100 transition ease-in duration-100 text-center text-base font-semibold shadow-md rounded-lg">
-            <Link to="/join">Leave</Link>
+            <Link to="/">Leave</Link>
           </button>
           <p className="py-2 px-2.5 bg-slate-400 hover:bg-slate-500 text-slate-100 transition ease-in duration-100 text-center text-base font-semibold shadow-md rounded-lg">
             🟢 {username}

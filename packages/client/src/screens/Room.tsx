@@ -25,7 +25,7 @@ export function Room() {
 
   useEffect(() => {
     const handleResponse = (response: { status: string }) => {
-      if (response.status === 'error') navigate('/join')
+      if (response.status === 'error') navigate('/')
     }
 
     // If the user joins directly to the room but does not have a username,
@@ -35,7 +35,7 @@ export function Room() {
 
     // Make sure that the user has a name and is in a valid room
     if (!username || !room) {
-      navigate('/join')
+      navigate('/')
     } else {
       socket.emit('join_room', { timestamp, username, room }, handleResponse)
       sessionStorage.setItem('timestamp', timestamp)
