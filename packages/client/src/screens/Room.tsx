@@ -15,9 +15,9 @@ export function Room() {
   const socket = useContext(SocketContext)
   const navigate = useNavigate()
   const room = (useParams().roomId || '').substring(0, 4)
-  const username = sessionStorage.getItem('username')
-  const colorHue = sessionStorage.getItem('colorHue') || colorDefaults.h.toString()
-  const timestamp = sessionStorage.getItem('timestamp') || Date.now().toString()
+  const username = localStorage.getItem('username')
+  const colorHue = localStorage.getItem('colorHue') || colorDefaults.h.toString()
+  const timestamp = localStorage.getItem('timestamp') || Date.now().toString()
 
   const [orbitControlsEnabled, setPointerDown, setPointerUp] = useStore((state: PianoState) => [
     state.orbitControlsEnabled,
@@ -31,9 +31,9 @@ export function Room() {
     }
 
     // If the user joins directly to the room but does not have a username,
-    // redirect to the join screen but store the room in sessionStorage
+    // redirect to the join screen but store the room in localStorage
     // so that the room can be pre-filled when the user returns to the join screen.
-    sessionStorage.setItem('room', room)
+    localStorage.setItem('room', room)
 
     // Make sure that the user has a name and is in a valid room
     if (!username || !room || !colorHue) {
@@ -46,7 +46,7 @@ export function Room() {
       }
 
       socket.emit('join_room', { timestamp, user }, handleResponse)
-      sessionStorage.setItem('timestamp', timestamp)
+      localStorage.setItem('timestamp', timestamp)
     }
 
     // Inform the server that the user has left the room

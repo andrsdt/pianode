@@ -6,9 +6,9 @@ import { PinGroup } from '../components/PinGroup'
 
 export function Home() {
   const navigate = useNavigate()
-  const [username, setUsername] = useState(sessionStorage.getItem('username') || '')
-  const [room, setRoom] = useState(sessionStorage.getItem('room') || '')
-  const [colorHue, setColorHue] = useState(sessionStorage.getItem('colorHue') || colorDefaults.h.toString())
+  const [username, setUsername] = useState(localStorage.getItem('username') || '')
+  const [room, setRoom] = useState(localStorage.getItem('room') || '')
+  const [colorHue, setColorHue] = useState(localStorage.getItem('colorHue') || colorDefaults.h.toString())
   const [showColorPicker, setShowColorPicker] = useState(false)
   const { s, l } = colorDefaults
 
@@ -20,8 +20,8 @@ export function Home() {
   const submitDisabled = !errors.username.isValid || !errors.room.isValid
 
   const handleSubmit = () => {
-    sessionStorage.setItem('username', username)
-    sessionStorage.setItem('colorHue', colorHue)
+    localStorage.setItem('username', username)
+    localStorage.setItem('colorHue', colorHue)
     navigate(`/rooms/${room}`)
   }
 

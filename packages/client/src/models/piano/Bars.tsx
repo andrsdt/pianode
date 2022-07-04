@@ -90,7 +90,7 @@ export function Bars(props: { piano: Group }) {
     // with property isActive set to true. If there is not, create a new bar and add it to the list.
     pressedKeys.forEach((k) => {
       const keyModel = pianoKeys.children.find((child) => child.name === k.key.note) as Mesh
-      const colorHue = parseInt(users.find((user) => user.id === k.id)?.colorHue || sessionStorage.getItem('colorHue') || '0')
+      const colorHue = parseInt(users.find((user) => user.id === k.id)?.colorHue || localStorage.getItem('colorHue') || '0')
       const newBar = { startMoment: Date.now(), keyModel, isActive: true, colorHue }
       newBars.push(newBar)
     })

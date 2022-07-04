@@ -13,7 +13,7 @@ function HuePicker(props: { hue: string; visible: boolean }) {
 
   const handleOutOfFocus = () => {
     socket.emit('change_color', { hue })
-    sessionStorage.setItem('colorHue', hue)
+    localStorage.setItem('colorHue', hue)
   }
 
   return (
@@ -54,7 +54,7 @@ function UserPill(props: { user: IUser }) {
 
 export function Footer(props: { users: IUser[] }) {
   const { users } = props
-  const username = sessionStorage.getItem('username')
+  const username = localStorage.getItem('username')
   const me: IUser | undefined = users.find((u) => u.username === username)
 
   return (
