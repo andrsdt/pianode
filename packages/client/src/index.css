@@ -30,3 +30,20 @@ input[type='number'] {
 input:focus::placeholder {
   color: transparent;
 }
+
+.react-colorful:hover {
+  cursor: pointer;
+}
+
+.only-hue .react-colorful {
+  height: min-content;
+}
+
+.only-hue .react-colorful__saturation {
+  display: none;
+}
+
+.picker-pill .react-colorful__hue {
+  border-radius: 2em;
+  width: 9rem;
+}

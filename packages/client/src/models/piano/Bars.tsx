@@ -1,28 +1,35 @@
 import { useFrame } from '@react-three/fiber'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { BoxBufferGeometry, Group, Mesh, MeshBasicMaterial } from 'three'
+import { useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { colorDefaults, IUser } from 'shared'
+import { BoxBufferGeometry, Group, Mesh, MeshStandardMaterial } from 'three'
+import { SocketContext } from '../../context/socket'
 import { PianoState, useStore } from '../../store'
 
 const SECONDS_VISIBLE = 10 * 1000 // How long the bars are is visible since the moment the key is released
-const BAR_SPEED = 0.3 // How fast the bars move
+const BAR_SPEED = 0.2 // How fast the bars move
 
 interface IBar {
   startMoment: number
   endMoment?: number
   keyModel: Mesh
   isActive: boolean
+  colorHue: number
 }
 
 const isBlackKey = (note: string) => note.includes('#')
 
-function Bar(props: { keyModel: Mesh; isActive: boolean }) {
+function Bar(props: { keyModel: Mesh; isActive: boolean; colorHue: number }) {
   const { keyModel, isActive } = props
+  const { s, l } = colorDefaults
+  const h = props.colorHue
+
   const mesh = useRef()
   // Creating objects in three.js can be computationally expensive. Use useMemo() to cache
   // the objects and avoid creating them again if they haven't changed.
   // https://docs.pmnd.rs/react-three-fiber/advanced/pitfalls
-  const geom = useMemo(() => new BoxBufferGeometry(0.5, 0.1, keyModel.scale.z * 2), [])
-  const mat = useMemo(() => new MeshBasicMaterial({ color: 'green' }), [])
+  const geom = useMemo(() => new BoxBufferGeometry(0.8, 0.1, keyModel.scale.z * 2), [])
+  const matLight = useMemo(() => new MeshStandardMaterial({ color: `hsl(${h}, ${s}%, ${l}%)` }), [])
+  const matDark = useMemo(() => new MeshStandardMaterial({ color: `hsl(${h}, ${s}%, ${l - 10}%)` }), [])
 
   // This reference will give us direct access to the mesh
   // Set up state for the hovered and active state
@@ -46,7 +53,7 @@ function Bar(props: { keyModel: Mesh; isActive: boolean }) {
       position={[keyModel.position.x, 2, keyModel.position.z - (isBlackKey(keyModel.name) ? 0 : 0.35)]}
       rotation={[0, Math.PI / 2, 0]}
       geometry={geom}
-      material={mat}
+      material={isBlackKey(keyModel.name) ? matDark : matLight}
     />
   )
 }
@@ -55,8 +62,24 @@ export function Bars(props: { piano: Group }) {
   const { piano } = props
   const pianoKeys = piano.children.find((child) => child.name === 'keys') as Group
   const [bars, setBars] = useState<IBar[]>([])
-
   const [pressedKeys, camera] = useStore((state: PianoState) => [state.pressedKeys, state.camera])
+
+  // TODO: the 'users' array is used in more places. Extract to store?
+  const socket = useContext(SocketContext)
+  const [users, setUsers] = useState<IUser[]>([])
+
+  useEffect(() => {
+    socket.on('users', (userList) => {
+      // FIXME: right now, this is only updated when the user list changes or when the user manually changes his/her color inside a room.
+      // Therefore, the lines will be drawn red since `users`  is an empty list.
+      // A solution would be to handle the user list via a store, and update such a store on receiving 'users' messages
+      setUsers(userList)
+    })
+
+    return () => {
+      socket.off('users')
+    }
+  }, [socket])
 
   useEffect(() => {
     // Copy the current state of bars
@@ -67,7 +90,8 @@ export function Bars(props: { piano: Group }) {
     // with property isActive set to true. If there is not, create a new bar and add it to the list.
     pressedKeys.forEach((k) => {
       const keyModel = pianoKeys.children.find((child) => child.name === k.key.note) as Mesh
-      const newBar = { startMoment: Date.now(), keyModel, isActive: true }
+      const colorHue = parseInt(users.find((user) => user.id === k.id)?.colorHue || sessionStorage.getItem('colorHue') || '0')
+      const newBar = { startMoment: Date.now(), keyModel, isActive: true, colorHue }
       newBars.push(newBar)
     })
 
@@ -100,7 +124,7 @@ export function Bars(props: { piano: Group }) {
     <group position={isTopCamera ? [0, 18.6, -11.5] : [0, 0, 0]} rotation={isTopCamera ? [-Math.PI / 2, 0, 0] : [0, 0, 0]}>
       {bars.map((b) => (
         // TODO: change the unique key to be somethig more meaningful
-        <Bar key={`${b.keyModel.name} ${b.startMoment}`} keyModel={b.keyModel} isActive={b.isActive} />
+        <Bar key={`${b.keyModel.name} ${b.startMoment}`} keyModel={b.keyModel} isActive={b.isActive} colorHue={b.colorHue} />
       ))}
     </group>
   )

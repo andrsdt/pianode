@@ -1,9 +1,10 @@
 const users = {};
 
-export const addUser = (timestamp, id, username, room) => {
+export const addUser = (timestamp, user) => {
   // key is the timestamp of the connection, value is the user object ({id, username, room})
   // Will replace the user with its new data if it already exists
-  users[timestamp] = { id, username, room };
+  const { id, room, username, colorHue } = user;
+  users[timestamp] = { id, room, username, colorHue };
 };
 
 export const removeUser = (id) => {
@@ -21,10 +22,22 @@ export const removeUser = (id) => {
   return copy;
 };
 
+export const updateColor = (id, hue) => {
+  // Find in the object the key that matches the id
+  const key = Object.keys(users).find((k) => users[k].id === id);
+  if (!key) return null;
+
+  // Update the user's colorHue
+  users[key].colorHue = hue;
+
+  // When the user changes his color, all the other users in the same room will see it
+  return users[key];
+};
+
 export const getUserByTimestamp = (id) => users[id];
 
 // Return an array of users that are in the room
 export const getUsersInRoom = (room) =>
-  Object.values(users)
-    .filter((user) => user.room === room)
-    .map((user) => user.username);
+  // TODO: it would be better if we didn't send back the id of the user, which is something internal
+  // When the user store is implemented, we can get rid of that
+  Object.values(users).filter((user) => user.room === room);

@@ -2,7 +2,7 @@ import { Server } from 'socket.io';
 import { toasts } from 'shared';
 import { server } from './app';
 import { validators } from './validators';
-import { getUsersInRoom, removeUser, addUser } from './user';
+import { getUsersInRoom, removeUser, addUser, updateColor } from './user';
 
 const io = new Server(server, {
   cors: {
@@ -13,22 +13,23 @@ const io = new Server(server, {
 
 io.on('connection', (socket) => {
   socket.on('join_room', async (e, callback) => {
-    const { timestamp, username, room } = e;
+    const { timestamp, user } = e;
+    user.id = socket.id;
 
     if (
-      !validators.room(socket, room) ||
-      !validators.username(socket, username)
+      !validators.room(socket, user.room) ||
+      !validators.username(socket, user.username)
     ) {
       callback({ status: 'error' });
       return;
     }
 
-    await socket.join(room);
-    addUser(timestamp, socket.id, username, room);
-    io.to(room).emit('users', getUsersInRoom(room));
-    io.to(room)
-      .except(socket.id)
-      .emit('notification', toasts.info.joinRoom(username));
+    await socket.join(user.room);
+    addUser(timestamp, user);
+    io.to(user.room).emit('users', getUsersInRoom(user.room));
+    io.to(user.room)
+      .except(user.id)
+      .emit('notification', toasts.info.joinRoom(user));
     callback({ status: 'ok' });
   });
 
@@ -51,10 +52,16 @@ io.on('connection', (socket) => {
     }
 
     io.to(room).emit('users', getUsersInRoom(room));
-    io.to(room)
-      .except(socket.id)
-      .emit('notification', toasts.info.leaveRoom(user.username));
+    io.to(room).except(id).emit('notification', toasts.info.leaveRoom(user));
     callback({ status: 'ok' });
+  });
+
+  socket.on('change_color', (e) => {
+    const { hue } = e;
+    const { id } = socket;
+    const user = updateColor(id, hue);
+    if (!user) return;
+    io.to(user.room).emit('users', getUsersInRoom(user.room));
   });
 
   socket.on('key_down', (e) => {
@@ -75,11 +82,12 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     const { id } = socket;
-    const { username, room } = removeUser(id);
+    const { user, room } = removeUser(id);
+    if (!user) return;
     // Send the users in the room the new list
     io.to(room).emit('users', getUsersInRoom(room));
     io.to(room)
       .except(socket.id)
-      .emit('notification', toasts.info.leaveRoom(username));
+      .emit('notification', toasts.info.leaveRoom(user));
   });
 });

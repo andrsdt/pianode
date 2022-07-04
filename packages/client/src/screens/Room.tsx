@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber'
 import { useContext, useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate, useParams } from 'react-router-dom'
+import { colorDefaults, IUser } from 'shared'
 import { SocketContext } from '../context/socket'
 import { Piano } from '../models/piano/Piano'
 import { Online } from '../online/Online'
@@ -13,8 +14,9 @@ import { UserInterface } from '../ui/UserInterface'
 export function Room() {
   const socket = useContext(SocketContext)
   const navigate = useNavigate()
-  const room = useParams().roomId
+  const room = (useParams().roomId || '').substring(0, 4)
   const username = sessionStorage.getItem('username')
+  const colorHue = sessionStorage.getItem('colorHue') || colorDefaults.h.toString()
   const timestamp = sessionStorage.getItem('timestamp') || Date.now().toString()
 
   const [orbitControlsEnabled, setPointerDown, setPointerUp] = useStore((state: PianoState) => [
@@ -31,13 +33,19 @@ export function Room() {
     // If the user joins directly to the room but does not have a username,
     // redirect to the join screen but store the room in sessionStorage
     // so that the room can be pre-filled when the user returns to the join screen.
-    if (room) sessionStorage.setItem('room', room.substring(0, 4))
+    sessionStorage.setItem('room', room)
 
     // Make sure that the user has a name and is in a valid room
-    if (!username || !room) {
+    if (!username || !room || !colorHue) {
       navigate('/')
     } else {
-      socket.emit('join_room', { timestamp, username, room }, handleResponse)
+      const user: IUser = {
+        username,
+        room,
+        colorHue,
+      }
+
+      socket.emit('join_room', { timestamp, user }, handleResponse)
       sessionStorage.setItem('timestamp', timestamp)
     }
 
