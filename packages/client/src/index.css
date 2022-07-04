@@ -9,10 +9,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}
-
 /* Hide the arrows in input of type number */
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,

@@ -1,6 +1,7 @@
 import { useGLTF } from '@react-three/drei'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { socket, SocketContext } from './context/socket'
+import { Error } from './screens/Error'
 import { Home } from './screens/Home'
 import { Room } from './screens/Room'
 import { Notifications } from './ui/Notifications'
@@ -16,8 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/rooms/:roomId" element={<Room />} />
-          {/* TODO: Error page */}
-          <Route path="*" element={<Home />} />
+          <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>
     </SocketContext.Provider>
