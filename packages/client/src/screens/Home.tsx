@@ -8,7 +8,7 @@ export function Home() {
   const navigate = useNavigate()
   const [username, setUsername] = useState(localStorage.getItem('username') || '')
   const [room, setRoom] = useState(localStorage.getItem('room') || '')
-  const [colorHue, setColorHue] = useState(localStorage.getItem('colorHue') || colorDefaults.h.toString())
+  const [colorHue, setColorHue] = useState(localStorage.getItem('colorHue') || Math.floor(Math.random() * 360).toString())
   const [showColorPicker, setShowColorPicker] = useState(false)
   const { s, l } = colorDefaults
 

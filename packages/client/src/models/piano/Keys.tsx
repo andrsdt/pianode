@@ -5,7 +5,8 @@ import THREE from 'three'
 import { SocketContext } from '../../context/socket'
 import { Midi } from '../../controls/Midi'
 import { usePrevious } from '../../hooks/UsePrevious'
-import { PianoState, useStore } from '../../store'
+import { ControlsState, useControlsStore } from '../../stores/UseControlsStore'
+import { PianoState, usePianoStore } from '../../stores/UsePianoStore'
 import { Key } from './Key'
 import { GLTFResult } from './Piano'
 import { Tone } from './Tone'
@@ -19,27 +20,19 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
   const [pressedKeyWithMouse, setPressedKeyWithMouse] = useState('')
   const lastPressedKeyWithMouse = usePrevious(pressedKeyWithMouse) || ''
 
-  const [pressKey, releaseKey, replaceKey, isPointerDown, orbitControlsEnabled, disableOrbitControls] = useStore((state: PianoState) => [
-    state.pressKey,
-    state.releaseKey,
-    state.replaceKey,
-    state.isPointerDown,
-    state.orbitControlsEnabled,
-    state.disableOrbitControls,
-  ])
+  const [pressKey, releaseKey, replaceKey] = usePianoStore((state: PianoState) => [state.pressKey, state.releaseKey, state.replaceKey])
+
+  const isPointerDown = useControlsStore((state: ControlsState) => state.isPointerDown)
 
   const handlePointerDown = (e: ThreeEvent<MouseEvent>) => {
     const key = e.object.name
     e.stopPropagation()
-    disableOrbitControls()
     setPressedKeyWithMouse(key)
   }
 
   const handlePointerOver = (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation()
-    if (!isPointerDown || orbitControlsEnabled) {
-      return
-    }
+    if (!isPointerDown) return
     const key = e.object.name
     setPressedKeyWithMouse(key)
   }

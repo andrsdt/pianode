@@ -8,7 +8,7 @@ import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { Keys } from './Keys'
 import { Sustain } from './Pedals'
-import { Bars } from './Bars'
+import { Trails } from './Trails'
 
 export type GLTFResult = GLTF & {
   nodes: {
@@ -155,7 +155,7 @@ export function Piano({ ...props }: JSX.IntrinsicElements['group']) {
           <mesh name="github-logo" geometry={nodes['github-logo'].geometry} material={materials.White} position={[-20.33, 5.11, -20.46]} scale={13.72} />
           <Sustain />
         </group>
-        {piano.current && <Bars piano={piano.current} />}
+        {piano.current && <Trails piano={piano.current} />}
         <group
           name="room"
           // @ts-expect-error allow mutable refs

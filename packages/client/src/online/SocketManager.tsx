@@ -1,16 +1,24 @@
 import { useContext, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import { SocketContext } from '../context/socket'
 import { usePrevious } from '../hooks/UsePrevious'
 import { ToneKey } from '../models/piano/Tone'
-import { PianoState, useStore } from '../store'
+import { PianoState, usePianoStore } from '../stores/UsePianoStore'
+import { UserState, useUserStore } from '../stores/UseUserStore'
+import { JoinRoom } from './JoinRoom'
 
-export function Online(params: { room: string | undefined }) {
+export function SocketManager() {
   const socket = useContext(SocketContext)
   const socketId = socket.id
-  const { room } = params || ''
+  const room = (useParams().roomId || '').substring(0, 4)
 
   // HANDLE EMITTING
-  const [pressedKeys, pressKey, releaseKey, pressPedal, releasePedal, isPedalDown] = useStore((state: PianoState) => [
+  const setUsersInRoom = useUserStore((state: UserState) => state.setUsersInRoom)
+  // TODO: handle userState here too. Whenever the user changes, it updates the UserState from its own
+  // component and a "socket.emit()" is triggered from here. In the same way, we listen to "socket.on()"
+  // here and update the state accordingly, so that the components can render with the new data.
+
+  const [pressedKeys, pressKey, releaseKey, pressPedal, releasePedal, isPedalDown] = usePianoStore((state: PianoState) => [
     state.pressedKeys,
     state.pressKey,
     state.releaseKey,
@@ -18,7 +26,6 @@ export function Online(params: { room: string | undefined }) {
     state.releasePedal,
     state.isPedalDown,
   ])
-
   const previousKeys: { key: ToneKey; id: string }[] = usePrevious(pressedKeys) || []
 
   useEffect(() => {
@@ -46,14 +53,16 @@ export function Online(params: { room: string | undefined }) {
     socket.on('key_up', (e) => releaseKey(e.key.note, e.id))
     socket.on('pedal_down', pressPedal)
     socket.on('pedal_up', releasePedal)
+    socket.on('users', setUsersInRoom)
 
     return () => {
       socket.off('key_down')
       socket.off('key_up')
       socket.off('pedal_down')
       socket.off('pedal_up')
+      socket.off('users')
     }
   }, [socket])
 
-  return null
+  return <JoinRoom />
 }

@@ -1,5 +1,5 @@
 import { animated, useSpring } from '@react-spring/three'
-import { PianoState, useStore } from '../../store'
+import { PianoState, usePianoStore } from '../../stores/UsePianoStore'
 
 interface Props {
   name: string
@@ -19,7 +19,7 @@ export function Key(props: Props) {
   const rot = props.rotation
   const downRot: Props['rotation'] = [rot[0] + Math.PI / 45, rot[1], rot[2]]
 
-  const isDown = useStore((state: PianoState) => state.pressedKeys.map((k) => k.key.note).includes(name))
+  const isDown = usePianoStore((state: PianoState) => state.pressedKeys.map((k) => k.key.note).includes(name))
 
   const { position, rotation } = useSpring({
     position: isDown ? downPos : pos,

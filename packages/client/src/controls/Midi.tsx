@@ -1,12 +1,12 @@
 import { useContext, useEffect } from 'react'
 import webmidi from 'webmidi'
 import { SocketContext } from '../context/socket'
-import { useStore } from '../store'
+import { usePianoStore } from '../stores/UsePianoStore'
 
 export function Midi() {
   const socketId = useContext(SocketContext).id
 
-  const [pressKey, releaseKey, pressPedal, releasePedal] = useStore((state) => [state.pressKey, state.releaseKey, state.pressPedal, state.releasePedal])
+  const [pressKey, releaseKey, pressPedal, releasePedal] = usePianoStore((state) => [state.pressKey, state.releaseKey, state.pressPedal, state.releasePedal])
 
   const setupWebmidi = () => {
     // TODO: midi select menu

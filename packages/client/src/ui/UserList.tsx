@@ -3,9 +3,8 @@ import { Square } from '../components/Square'
 
 function UserListEntry(props: { user: IUser }) {
   const { user } = props
-
   return (
-    <li className="flex py-2 px-3 items-center transition transform" key={user.username}>
+    <li className="flex py-2 px-3 items-center transition transform" key={user.id}>
       <Square color={{ h: user.colorHue }} />
       <p className="text-gray-600">{user.username}</p>
     </li>
@@ -22,7 +21,7 @@ export function UserList(props: { users: IUser[]; visible: boolean }) {
       <p className="text-gray-500 pb-1 font-semibold px-3 mb-1">Users</p>
       <ul className="flex flex-col divide-y">
         {users.map((user) => (
-          <UserListEntry user={user} />
+          <UserListEntry user={user} key={user.id} />
         ))}
       </ul>
     </div>

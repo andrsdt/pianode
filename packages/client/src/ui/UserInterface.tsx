@@ -1,28 +1,14 @@
-import { useContext, useEffect, useState } from 'react'
-import { IUser } from 'shared'
-import { SocketContext } from '../context/socket'
+import { UserState, useUserStore } from '../stores/UseUserStore'
 import { Footer } from './Footer'
 import { Header } from './Header'
 
 export function UserInterface() {
-  const socket = useContext(SocketContext)
-  // TODO: the 'users' array is used in more places. Extract to store?
-  const [users, setUsers] = useState<IUser[]>([])
-
-  useEffect(() => {
-    socket.on('users', (userList) => {
-      setUsers(userList)
-    })
-
-    return () => {
-      socket.off('users')
-    }
-  }, [socket])
+  const usersInRoom = useUserStore((state: UserState) => state.usersInRoom)
 
   return (
     <>
-      <Header users={users} />
-      <Footer users={users} />
+      <Header users={usersInRoom} />
+      <Footer users={usersInRoom} />
     </>
   )
 }

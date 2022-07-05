@@ -1,29 +1,42 @@
 import { Piano } from '@tonejs/piano'
+import { useEffect, useMemo } from 'react'
 import { usePrevious } from '../../hooks/UsePrevious'
-import { useStore } from '../../store'
+import { usePianoStore } from '../../stores/UsePianoStore'
+import { usePreferencesStore } from '../../stores/UsePreferencesStore'
 
 export interface ToneKey {
   note: string
   velocity: number
 }
 
-const tone = new Piano({
-  velocities: 1,
-  // Increase for more precision when using a MIDI device with weighted keys.
-  // Keyboard and mouse controls will only use one velocity
-  maxPolyphony: 88,
-})
-
-tone.toDestination()
-
-tone.load()
-
 export function Tone() {
-  const [pressedKeys, isPedalDown] = useStore((state) => [state.pressedKeys, state.isPedalDown])
+  const velocities = usePreferencesStore((state) => state.pianoVelocities)
+  const [pressedKeys, isPedalDown] = usePianoStore((state) => [state.pressedKeys, state.isPedalDown])
   const previousKeys: { key: ToneKey; id: string }[] = usePrevious(pressedKeys) || []
 
   const keysToPlay = pressedKeys.filter((k) => !previousKeys.includes(k))
   const keysToStop = previousKeys.filter((k) => !pressedKeys.includes(k))
+
+  // TODO: compare performance of useMemo() with defining "tone"
+  // outside of the component as it was in the previous version
+  const tone = useMemo(() => {
+    const toneMemo = new Piano({
+      velocities,
+      // Increase for more precision when using a MIDI device with weighted keys.
+      // Keyboard and mouse controls will only use one velocity
+      maxPolyphony: 88,
+    })
+    toneMemo.toDestination()
+    toneMemo.load()
+    return toneMemo
+  }, [])
+
+  // Update the piano velocities when the user changes them
+  useEffect(() => {
+    tone.set({ velocities })
+    // TODO: need to do .toDestination() and/or .toLoad() here?
+  }, [velocities])
+
   // Play all the new notes that weren't pressed in the previous state
   keysToPlay.forEach((k) => tone.keyDown(k.key))
 

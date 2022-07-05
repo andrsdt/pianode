@@ -1,14 +1,14 @@
 import { animated, config, useSpring } from '@react-spring/three'
 import { useGLTF } from '@react-three/drei'
 import { useRef } from 'react'
-import { PianoState, useStore } from '../../store'
+import { PianoState, usePianoStore } from '../../stores/UsePianoStore'
 import { GLTFResult } from './Piano'
 
 export function Sustain({ ...props }: JSX.IntrinsicElements['group']) {
   const sustain = useRef<THREE.Group>()
   const { nodes, materials } = useGLTF('/models/piano-draco.glb') as GLTFResult
 
-  const [toggleSustainButton, isSustainButtonDown, isPedalDown] = useStore((state: PianoState) => [
+  const [toggleSustainButton, isSustainButtonDown, isPedalDown] = usePianoStore((state: PianoState) => [
     state.toggleSustainButton,
     state.isSustainButtonDown,
     state.isPedalDown,
@@ -69,7 +69,7 @@ export function Sustain({ ...props }: JSX.IntrinsicElements['group']) {
         name="sustain-button"
         geometry={nodes['sustain-button'].geometry}
         material={materials.Transparent}
-        // @ts-ignore
+        // @ts-expect-error actually assignable
         position={sustainButtonPos}
         rotation={[0, 0, 0]}
         scale={[2.36, 0.45, 0.57]}

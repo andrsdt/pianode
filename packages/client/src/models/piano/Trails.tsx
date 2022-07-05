@@ -1,9 +1,10 @@
 import { useFrame } from '@react-three/fiber'
-import { useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { colorDefaults, IUser } from 'shared'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { colorDefaults } from 'shared'
 import { BoxBufferGeometry, Group, Mesh, MeshStandardMaterial } from 'three'
-import { SocketContext } from '../../context/socket'
-import { PianoState, useStore } from '../../store'
+import { PianoState, usePianoStore } from '../../stores/UsePianoStore'
+import { PreferencesState, usePreferencesStore } from '../../stores/UsePreferencesStore'
+import { UserState, useUserStore } from '../../stores/UseUserStore'
 
 const SECONDS_VISIBLE = 10 * 1000 // How long the bars are is visible since the moment the key is released
 const BAR_SPEED = 0.2 // How fast the bars move
@@ -58,28 +59,13 @@ function Bar(props: { keyModel: Mesh; isActive: boolean; colorHue: number }) {
   )
 }
 
-export function Bars(props: { piano: Group }) {
+export function Trails(props: { piano: Group }) {
   const { piano } = props
   const pianoKeys = piano.children.find((child) => child.name === 'keys') as Group
   const [bars, setBars] = useState<IBar[]>([])
-  const [pressedKeys, camera] = useStore((state: PianoState) => [state.pressedKeys, state.camera])
-
-  // TODO: the 'users' array is used in more places. Extract to store?
-  const socket = useContext(SocketContext)
-  const [users, setUsers] = useState<IUser[]>([])
-
-  useEffect(() => {
-    socket.on('users', (userList) => {
-      // FIXME: right now, this is only updated when the user list changes or when the user manually changes his/her color inside a room.
-      // Therefore, the lines will be drawn red since `users`  is an empty list.
-      // A solution would be to handle the user list via a store, and update such a store on receiving 'users' messages
-      setUsers(userList)
-    })
-
-    return () => {
-      socket.off('users')
-    }
-  }, [socket])
+  const pressedKeys = usePianoStore((state: PianoState) => state.pressedKeys)
+  const camera = usePreferencesStore((state: PreferencesState) => state.camera)
+  const users = useUserStore((state: UserState) => state.usersInRoom)
 
   useEffect(() => {
     // Copy the current state of bars

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { HslColorPicker } from 'react-colorful'
 import { Link } from 'react-router-dom'
 import { colorDefaults, IUser } from 'shared'
@@ -12,6 +12,8 @@ function HuePicker(props: { hue: string; visible: boolean }) {
   const { s, l } = colorDefaults
 
   const handleOutOfFocus = () => {
+    const currentHue = localStorage.getItem('colorHue')
+    if (currentHue === hue) return
     socket.emit('change_color', { hue })
     localStorage.setItem('colorHue', hue)
   }
@@ -23,8 +25,6 @@ function HuePicker(props: { hue: string; visible: boolean }) {
       } transition-all duration-300 ease-in-out only-hue picker-pill absolute`}>
       <HslColorPicker
         color={{ h: parseInt(hue), s, l }}
-        // TODO: improve this so that it's naturally updated for the user on every setState(),
-        // but only updated on the server when out of focus
         onChange={(color) => {
           setHue(color.h.toString())
         }}
@@ -41,12 +41,12 @@ function UserPill(props: { user: IUser }) {
 
   return (
     <>
-      <p
+      <div
         className="relative flex py-2 px-2.5 bg-slate-400 hover:bg-slate-500 text-slate-100 transition ease-in duration-100 text-center text-base font-semibold shadow-md rounded-lg hover:cursor-pointer"
         onClick={() => setShowColorPicker((v) => !v)}>
         <Square color={{ h: user.colorHue }} />
         {user.username}
-      </p>
+      </div>
       <HuePicker hue={user.colorHue} visible={showColorPicker} />
     </>
   )
