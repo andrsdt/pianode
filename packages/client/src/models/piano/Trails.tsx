@@ -7,7 +7,7 @@ import { PreferencesState, usePreferencesStore } from '../../stores/UsePreferenc
 import { UserState, useUserStore } from '../../stores/UseUserStore'
 
 const SECONDS_VISIBLE = 10 * 1000 // How long the bars are is visible since the moment the key is released
-const BAR_SPEED = 0.2 // How fast the bars move
+const BAR_SPEED = 20 // How fast the bars move
 
 interface IBar {
   startMoment: number
@@ -38,11 +38,15 @@ function Bar(props: { keyModel: Mesh; isActive: boolean; colorHue: number }) {
 
   // TODO: may the useFrame affect the entire group of keys. It could be more
   // performant since only the position of the group is updated
-  useFrame(() => {
+  useFrame((_, delta) => {
+    // Adjust the bar speed to the framerate, so that the bars move at the same speed
+    // regardless of the framerate, so that it looks the same in 60hz, 144hz... and also
+    // bars don't move slower if the app lags due to lack of resources in the client
+    const barSpeedAdjusted = BAR_SPEED * delta
     if (!mesh.current) return
     const current = mesh.current as Mesh
-    current.position.y += isActive ? BAR_SPEED / 5 : BAR_SPEED / 2.45
-    if (isActive) current.scale.y += BAR_SPEED * 4
+    current.position.y += isActive ? barSpeedAdjusted / 5 : barSpeedAdjusted / 2.45
+    if (isActive) current.scale.y += barSpeedAdjusted * 4
   })
 
   // Return view, these are regular three.js elements expressed in JSX
