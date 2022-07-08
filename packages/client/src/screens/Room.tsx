@@ -9,7 +9,7 @@ export function Room() {
   const [setPointerDown, setPointerUp] = useControlsStore((state: ControlsState) => [state.setPointerDown, state.setPointerUp])
 
   return (
-    <div className="w-full h-screen" onPointerUp={setPointerUp} onPointerDown={setPointerDown}>
+    <div className="w-full h-screen noselect" onPointerUp={setPointerUp} onPointerDown={setPointerDown}>
       <SocketManager />
       <UserInterface />
       <Canvas>
