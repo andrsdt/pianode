@@ -9,6 +9,8 @@ import { GLTF } from 'three-stdlib'
 import { Keys } from './Keys'
 import { Sustain } from './Pedals'
 import { Trails } from './Trails'
+import { usePreferencesStore } from '../../stores/UsePreferencesStore'
+import { ColorizeKeys } from './ColorizeKeys'
 
 export type GLTFResult = GLTF & {
   nodes: {
@@ -132,6 +134,7 @@ export function Piano({ ...props }: JSX.IntrinsicElements['group']) {
   const room = useRef<THREE.Group>()
 
   const { nodes, materials } = useGLTF('/models/piano-draco.glb') as GLTFResult
+  const [showTrails, colorizeKeys] = usePreferencesStore((state) => [state.showTrails, state.colorizeKeys])
 
   return (
     <Suspense>
@@ -155,7 +158,9 @@ export function Piano({ ...props }: JSX.IntrinsicElements['group']) {
           <mesh name="github-logo" geometry={nodes['github-logo'].geometry} material={materials.White} position={[-20.33, 5.11, -20.46]} scale={13.72} />
           <Sustain />
         </group>
-        {piano.current && <Trails piano={piano.current} />}
+        {showTrails && piano.current && <Trails piano={piano.current} />}
+        {colorizeKeys && piano.current && <ColorizeKeys piano={piano.current} />}
+
         <group
           name="room"
           // @ts-expect-error allow mutable refs
