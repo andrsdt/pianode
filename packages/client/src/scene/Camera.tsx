@@ -20,6 +20,15 @@ export function Camera() {
 
   const camera = useRef()
 
+  // On first render, set the camera position to the default one
+  useEffect(() => {
+    if (!camera.current) return
+    const cam = camera.current as Cam3JS
+    const [x, y, z] = availableCameras[currentCamera as keyof typeof availableCameras]
+    cam.position.set(x, y, z)
+    cam.lookAt(-116, 0, -30)
+  }, [])
+
   useFrame(() => {
     // Don't run this useFrame() if the lerp isn't going on
     // to avoid unnecesary computations
