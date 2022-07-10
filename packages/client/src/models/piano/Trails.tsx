@@ -63,9 +63,9 @@ function Bar(props: { keyModel: Mesh; isActive: boolean; colorHue: number }) {
   )
 }
 
-export function Trails(props: { piano: Group }) {
+export function Trails(props: { piano: Group | undefined }) {
   const { piano } = props
-  const pianoKeys = piano.children.find((child) => child.name === 'keys') as Group
+  const pianoKeys = piano?.children.find((child) => child.name === 'keys') as Group
   const [bars, setBars] = useState<IBar[]>([])
   const pressedKeys = usePianoStore((state: PianoState) => state.pressedKeys)
   const camera = usePreferencesStore((state: PreferencesState) => state.camera)
@@ -107,6 +107,9 @@ export function Trails(props: { piano: Group }) {
     }
   }, [pressedKeys])
 
+  useEffect(() => {
+    console.log('loaded trails')
+  }, [])
   // If using top camera, the bars should be rendered on the top of the piano and moving outwards
   const isTopCamera = camera === 'top'
 
