@@ -9,10 +9,10 @@ import { ToneKey } from './Tone'
 
 const isBlackKey = (note: string) => note.includes('#')
 
-export function ColorizeKeys(props: { piano: Group }) {
+export function ColorizeKeys(props: { piano: Group | undefined }) {
   const { materials } = useGLTF('/models/piano-draco.glb') as GLTFResult
   const { piano } = props
-  const pianoKeys = piano.children.find((child) => child.name === 'keys') as Group
+  const pianoKeys = piano?.children.find((child) => child.name === 'keys') as Group
 
   const users = useUserStore((state) => state.usersInRoom)
 
