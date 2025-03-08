@@ -131,3 +131,4 @@ dist
 
 # Own debug config
 .vscode/
+.idea/
