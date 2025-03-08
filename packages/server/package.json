@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "NODE_ENV=production node --es-module-specifier-resolution=node ./src/index.js",
-    "dev": "NODE_ENV=development nodemon --es-module-specifier-resolution=node ./src/index.js",
+    "start": "NODE_ENV=production node ./src/index.js",
+    "dev": "NODE_ENV=development nodemon ./src/index.js",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },

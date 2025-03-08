@@ -6,6 +6,7 @@
 
     /* Modules */
     "module": "ESNext" /* Specify what module code is generated. */,
+    "moduleResolution": "Node",
     "rootDir": "./src" /* Specify the root folder within your source files. */,
 
     /* Emit */
@@ -23,7 +24,10 @@
 
     // Generating .d.ts
     // "allowJs": true,
-    "declaration": true
+    "declaration": true,
+
+    "resolveJsonModule": true,
+    "isolatedModules": true
   },
   "include": ["src/**/*"]
 }

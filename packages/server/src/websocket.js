@@ -1,8 +1,8 @@
 import { Server } from 'socket.io';
 import { toasts } from 'shared';
-import { server } from './app';
-import { validators } from './validators';
-import { getUsersInRoom, removeUser, addUser, updateColor } from './user';
+import { server } from './app.js';
+import { validators } from './validators.js';
+import { getUsersInRoom, removeUser, addUser, updateColor } from './user.js';
 
 const io = new Server(server, {
   cors: {
