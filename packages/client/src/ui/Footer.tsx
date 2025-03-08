@@ -1,21 +1,28 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, useMemo } from 'react'
 import { HslColorPicker } from 'react-colorful'
 import { Link } from 'react-router-dom'
 import { colorDefaults, IUser } from 'shared'
 import { Square } from '../components/Square'
 import { SocketContext } from '../context/socket'
+import { ColorChangeStrategy, MultiplayerColorChangeStrategy, SoloColorChangeStrategy } from '../strategies/ColorChangeStrategy'
 
 function HuePicker(props: { hue: string; visible: boolean }) {
   const { visible } = props
   const socket = useContext(SocketContext)
   const [hue, setHue] = useState(props.hue)
   const { s, l } = colorDefaults
+  const isSoloMode = window.location.pathname === '/solo'
+
+  const colorChangeStrategy = useMemo<ColorChangeStrategy>(() => {
+    return isSoloMode 
+      ? new SoloColorChangeStrategy()
+      : new MultiplayerColorChangeStrategy(socket)
+  }, [isSoloMode, socket])
 
   const handleOutOfFocus = () => {
     const currentHue = localStorage.getItem('colorHue')
     if (currentHue === hue) return
-    socket.emit('change_color', { hue })
-    localStorage.setItem('colorHue', hue)
+    colorChangeStrategy.handleColorChange(hue)
   }
 
   return (

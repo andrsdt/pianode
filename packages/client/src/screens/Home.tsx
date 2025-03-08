@@ -84,6 +84,19 @@ export function Home() {
             disabled={submitDisabled}>
             Join
           </button>
+          <div className="flex gap-2 mt-2">
+            <button
+              id="play-solo-btn"
+              className="w-full p-4 rounded-xl transition-color ease-in-out duration-200 disabled:bg-zinc-500 bg-blue-600 hover:bg-blue-700 font-bold text-3xl shadow-xl"
+              onClick={() => {
+                localStorage.setItem('username', username)
+                localStorage.setItem('colorHue', colorHue)
+                navigate('/solo')
+              }}
+              disabled={!errors.username.isValid}>
+              Play Solo
+            </button>
+          </div>
         </div>
       </div>
     </div>

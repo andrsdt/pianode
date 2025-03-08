@@ -4,6 +4,7 @@ import { socket, SocketContext } from './context/socket'
 import { Error } from './screens/Error'
 import { Home } from './screens/Home'
 import { Room } from './screens/Room'
+import { SoloRoom } from './screens/SoloRoom'
 import { Notifications } from './ui/Notifications'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/rooms/:roomId" element={<Room />} />
+          <Route path="/solo" element={<SoloRoom />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>
