@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate, useParams } from 'react-router-dom'
 import { IUser } from 'shared'
@@ -11,11 +11,23 @@ export function JoinRoom() {
   const username = localStorage.getItem('username')
   const colorHue = localStorage.getItem('colorHue') || Math.floor(Math.random() * 360).toString()
   const timestamp = localStorage.getItem('timestamp') || Date.now().toString()
+  const hasShownError = useRef(false)
 
   useEffect(() => {
     const handleResponse = (response: { status: string }) => {
       if (response.status === 'error') navigate('/')
     }
+
+    // Handle socket disconnection
+    const handleDisconnect = () => {
+      if (!hasShownError.current) {
+        toast.error('Lost connection to server')
+        hasShownError.current = true
+      }
+      navigate('/')
+    }
+
+    socket.on('disconnect', handleDisconnect)
 
     // If the user joins directly to the room but does not have a username,
     // redirect to the join screen but store the room in localStorage
@@ -26,6 +38,16 @@ export function JoinRoom() {
     if (!username || !room || !colorHue) {
       navigate('/')
     } else {
+      // Check if socket is connected before attempting to join
+      if (!socket.connected) {
+        if (!hasShownError.current) {
+          toast.error('Unable to connect to server. Please, try solo mode')
+          hasShownError.current = true
+        }
+        navigate('/')
+        return
+      }
+
       const user: IUser = {
         username,
         room,
@@ -40,7 +62,8 @@ export function JoinRoom() {
 
     // Inform the server that the user has left the room
     return () => {
-      if (username) socket.emit('leave_room', { room }, handleResponse)
+      if (username && socket.connected) socket.emit('leave_room', { room }, handleResponse)
+      socket.off('disconnect', handleDisconnect)
       toast.dismiss()
     }
   }, [])
