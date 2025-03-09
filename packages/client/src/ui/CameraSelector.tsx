@@ -14,7 +14,6 @@ function CameraButton(props: { camera: string }) {
 export function CameraSelector() {
   return (
     <div className="flex">
-      <p className="bg-slate-500 rounded-lg m-0.5 p-2 px-2.5">Camera</p>
       <CameraButton camera="top" />
       <CameraButton camera="tilted" />
       <CameraButton camera="side" />

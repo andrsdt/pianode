@@ -10,10 +10,12 @@ import { PianoState, usePianoStore } from '../../stores/UsePianoStore'
 import { Key } from './Key'
 import { GLTFResult } from './Piano'
 import { Tone } from './Tone'
+import { PreferencesState, usePreferencesStore } from '../../stores/UsePreferencesStore'
 
 export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
   const socketId = useContext(SocketContext).id
-
+  const appMode = usePreferencesStore((state: PreferencesState) => state.appMode)
+  
   const keys = useRef<THREE.Group>()
   const { nodes, materials } = useGLTF('/models/piano-draco.glb') as GLTFResult
 
@@ -38,10 +40,11 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
   }
 
   useEffect(() => {
+    if (appMode !== 'piano') return
     if (!lastPressedKeyWithMouse && pressedKeyWithMouse) pressKey({ note: pressedKeyWithMouse, velocity: 1 }, socketId)
     if (lastPressedKeyWithMouse && !pressedKeyWithMouse) releaseKey(lastPressedKeyWithMouse, socketId)
     if (lastPressedKeyWithMouse && pressedKeyWithMouse) replaceKey(lastPressedKeyWithMouse, { note: pressedKeyWithMouse, velocity: 1 }, socketId)
-  }, [pressedKeyWithMouse])
+  }, [pressedKeyWithMouse, appMode])
 
   return (
     <>
@@ -50,7 +53,6 @@ export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
         // @ts-expect-error allow mutable refs
         ref={keys}
         {...props}
-        dispose={null}
         onPointerDown={handlePointerDown}
         onPointerUp={() => setPressedKeyWithMouse('')}
         onPointerOver={handlePointerOver}

@@ -1,49 +1,54 @@
-import { PerspectiveCamera } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber'
-import { useEffect, useRef, useState } from 'react'
+import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
+import { useEffect, useRef } from 'react'
 import { Camera as Cam3JS, Vector3 } from 'three'
+import { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 import { usePreferencesStore } from '../stores/UsePreferencesStore'
 
 export function Camera() {
   const currentCamera = usePreferencesStore((state) => state.camera)
-  const [cameraChanged, setCameraChanged] = useState(false)
-
-  useEffect(() => {
-    setCameraChanged(true)
-  }, [currentCamera])
+  const [cameraZoom] = usePreferencesStore((state) => [state.cameraZoom, state.setCameraZoom])
+  const appMode = usePreferencesStore((state) => state.appMode)
+  const camera = useRef<Cam3JS>()
+  const controls = useRef<OrbitControlsImpl>(null)
 
   const availableCameras = {
-    top: [-116, 200, 0],
-    tilted: [-116, 140, 160],
-    side: [-268, 6.8, 22],
+    top: new Vector3(-116, 250, 0),
+    tilted: new Vector3(-116, 180, 200),
+    side: new Vector3(-268, 6.8, 30),
   }
 
-  const camera = useRef()
+  const targetPosition = new Vector3(-116, 0, -30)
 
-  // On first render, set the camera position to the default one
+  // Handle camera type and zoom changes
   useEffect(() => {
-    if (!camera.current) return
-    const cam = camera.current as Cam3JS
-    const [x, y, z] = availableCameras[currentCamera as keyof typeof availableCameras]
-    cam.position.set(x, y, z)
-    cam.lookAt(-116, 0, -30)
-  }, [])
+    if (!camera.current || !controls.current) return
 
-  useFrame(() => {
-    // Don't run this useFrame() if the lerp isn't going on
-    // to avoid unnecesary computations
-    if (!cameraChanged || !camera.current) return
-    const cam = camera.current as Cam3JS
-    // use LERP TO SET CAMERA POSITION
-    const [newX, newY, newZ] = availableCameras[currentCamera as keyof typeof availableCameras]
-    cam.position.lerp(new Vector3(newX, newY, newZ), 0.025)
-    cam.lookAt(-116, 0, -30)
+    // Always start from the base position for the current camera type
+    const basePosition = availableCameras[currentCamera as keyof typeof availableCameras]
+    camera.current.position.copy(basePosition)
+    controls.current.target.copy(targetPosition)
 
-    // Detect if the camera has reached its destination and stop lerping
-    if (Math.abs(cam.position.x - newX) < 0.1 && Math.abs(cam.position.y - newY) < 0.1 && Math.abs(cam.position.z - newZ) < 0.1) {
-      setCameraChanged(false)
+    // Then apply zoom if needed
+    if (cameraZoom !== 1) {
+      const direction = camera.current.position.clone().sub(targetPosition).normalize()
+      const distance = basePosition.distanceTo(targetPosition) * cameraZoom
+      const newPosition = targetPosition.clone().add(direction.multiplyScalar(distance))
+      camera.current.position.copy(newPosition)
     }
-  })
+  }, [currentCamera, cameraZoom])
 
-  return <PerspectiveCamera makeDefault ref={camera} fov={35} />
+  return (
+    <>
+      <PerspectiveCamera makeDefault ref={camera} fov={45} />
+      <OrbitControls
+        ref={controls}
+        enableZoom={false}
+        enablePan={false}
+        enableRotate={appMode === 'camera'}
+        minDistance={50}
+        maxDistance={500}
+        target={targetPosition}
+      />
+    </>
+  )
 }
