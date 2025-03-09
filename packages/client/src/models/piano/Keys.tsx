@@ -15,7 +15,7 @@ import { PreferencesState, usePreferencesStore } from '../../stores/UsePreferenc
 export function Keys({ ...props }: JSX.IntrinsicElements['group']) {
   const socketId = useContext(SocketContext).id
   const appMode = usePreferencesStore((state: PreferencesState) => state.appMode)
-  
+
   const keys = useRef<THREE.Group>()
   const { nodes, materials } = useGLTF('/models/piano-draco.glb') as GLTFResult
 

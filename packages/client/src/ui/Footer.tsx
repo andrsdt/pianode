@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useMemo } from 'react'
+import { useContext, useState, useMemo } from 'react'
 import { HslColorPicker } from 'react-colorful'
 import { Link } from 'react-router-dom'
 import { colorDefaults, IUser } from 'shared'
@@ -6,7 +6,7 @@ import { Square } from '../components/Square'
 import { SocketContext } from '../context/socket'
 import { ColorChangeStrategy, MultiplayerColorChangeStrategy, SoloColorChangeStrategy } from '../strategies/ColorChangeStrategy'
 
-function HuePicker(props: { hue: string; visible: boolean }) {
+function HuePicker(props: Readonly<{ hue: string; visible: boolean }>) {
   const { visible } = props
   const socket = useContext(SocketContext)
   const [hue, setHue] = useState(props.hue)
@@ -14,9 +14,7 @@ function HuePicker(props: { hue: string; visible: boolean }) {
   const isSoloMode = window.location.pathname === '/solo'
 
   const colorChangeStrategy = useMemo<ColorChangeStrategy>(() => {
-    return isSoloMode 
-      ? new SoloColorChangeStrategy()
-      : new MultiplayerColorChangeStrategy(socket)
+    return isSoloMode ? new SoloColorChangeStrategy() : new MultiplayerColorChangeStrategy(socket)
   }, [isSoloMode, socket])
 
   const handleOutOfFocus = () => {
@@ -59,7 +57,7 @@ function UserPill(props: { user: IUser }) {
   )
 }
 
-export function Footer(props: { users: IUser[] }) {
+export function Footer(props: Readonly<{ users: IUser[] }>) {
   const { users } = props
   const username = localStorage.getItem('username')
   const me: IUser | undefined = users.find((u) => u.username === username)

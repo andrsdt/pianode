@@ -1,7 +1,7 @@
 import { IUser } from 'shared'
 import { Square } from '../components/Square'
 
-function UserListEntry(props: { user: IUser }) {
+function UserListEntry(props: Readonly<{ user: IUser }>) {
   const { user } = props
   return (
     <li className="flex py-2 px-3 items-center transition transform" key={user.id}>
@@ -10,7 +10,7 @@ function UserListEntry(props: { user: IUser }) {
     </li>
   )
 }
-export function UserList(props: { users: IUser[]; visible: boolean }) {
+export function UserList(props: Readonly<{ users: IUser[]; visible: boolean }>) {
   const { users, visible } = props
 
   return (

@@ -10,7 +10,7 @@ interface Props {
   scale: [x: number, y: number, z: number]
 }
 
-export function Key(props: Props) {
+export function Key(props: Readonly<Props>) {
   const { name, geometry, material, scale } = props
 
   const pos = props.position

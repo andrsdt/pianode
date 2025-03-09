@@ -19,7 +19,7 @@ interface IBar {
 
 const isBlackKey = (note: string) => note.includes('#')
 
-function Bar(props: { keyModel: Mesh; isActive: boolean; colorHue: number }) {
+function Bar(props: Readonly<{ keyModel: Mesh; isActive: boolean; colorHue: number }>) {
   const { keyModel, isActive } = props
   const { s, l } = colorDefaults
   const h = props.colorHue
@@ -63,7 +63,7 @@ function Bar(props: { keyModel: Mesh; isActive: boolean; colorHue: number }) {
   )
 }
 
-export function Trails(props: { piano: Group | undefined }) {
+export function Trails(props: Readonly<{ piano: Group | undefined }>) {
   const { piano } = props
   const pianoKeys = piano?.children.find((child) => child.name === 'keys') as Group
   const [bars, setBars] = useState<IBar[]>([])

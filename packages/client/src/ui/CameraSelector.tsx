@@ -1,6 +1,6 @@
 import { PreferencesState, usePreferencesStore } from '../stores/UsePreferencesStore'
 
-function CameraButton(props: { camera: string }) {
+function CameraButton(props: Readonly<{ camera: string }>) {
   const setCamera = usePreferencesStore((state: PreferencesState) => state.setCamera)
   return (
     <button

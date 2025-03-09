@@ -3,7 +3,7 @@ import { IUser } from 'shared'
 import { ModeControls } from './ModeControls'
 import { UserList } from './UserList'
 
-export function Header(props: { users: IUser[] }) {
+export function Header(props: Readonly<{ users: IUser[] }>) {
   const { users } = props
   const [showUserList, setShowUserList] = useState(true)
   const isSoloMode = window.location.pathname === '/solo'

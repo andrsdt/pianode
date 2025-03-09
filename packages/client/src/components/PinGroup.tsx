@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-function PinInput(props: { position: number; val: string; setPin: React.Dispatch<React.SetStateAction<string>> }) {
+function PinInput(props: Readonly<{ position: number; val: string; setPin: React.Dispatch<React.SetStateAction<string>> }>) {
   const { position, val, setPin } = props
 
   const setVal = (e: string) => {
@@ -79,7 +79,7 @@ function PinInput(props: { position: number; val: string; setPin: React.Dispatch
   )
 }
 
-export function PinGroup(props: { default?: string; digits: number; onChange: any }) {
+export function PinGroup(props: Readonly<{ default?: string; digits: number; onChange: any }>) {
   const [pin, setPin] = useState(props.default || '')
 
   useEffect(() => {
