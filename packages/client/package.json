@@ -53,7 +53,8 @@
     "vite": "^2.9.9"
   },
   "optionalDependencies": {
-    "@esbuild/linux-x64":"^0.25.0"
+    "esbuild-linux-64": "^0.15.18",
+    "@esbuild/linux-x64": "^0.25.0"
   },
   "proxy": "http://localhost:3001"
 }
