@@ -46,9 +46,15 @@ export function JoinRoom() {
               Unable to connect to the server.
               <br />
               You can try{' '}
-              <a href="/solo" onClick={() => toast.dismiss(t.id)} style={{ color: 'inherit', textDecoration: 'underline' }}>
+              <span
+                onClick={() => {
+                  toast.dismiss(t.id)
+                  navigate('/solo')
+                }}
+                style={{ color: 'inherit', textDecoration: 'underline', cursor: 'pointer' }}
+              >
                 solo mode
-              </a>{' '}
+              </span>{' '}
               in the meantime.
             </span>
           ))
