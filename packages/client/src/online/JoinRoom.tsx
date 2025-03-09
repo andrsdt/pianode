@@ -41,7 +41,17 @@ export function JoinRoom() {
       // Check if socket is connected before attempting to join
       if (!socket.connected) {
         if (!hasShownError.current) {
-          toast.error('Unable to connect to server. Please, try solo mode')
+          toast.error((t) => (
+            <span>
+              Unable to connect to the server.
+              <br />
+              You can try{' '}
+              <a href="/solo" onClick={() => toast.dismiss(t.id)} style={{ color: 'inherit', textDecoration: 'underline' }}>
+                solo mode
+              </a>{' '}
+              in the meantime.
+            </span>
+          ))
           hasShownError.current = true
         }
         navigate('/')
