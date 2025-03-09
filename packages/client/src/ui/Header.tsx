@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { IUser } from 'shared'
-import { CameraSelector } from './CameraSelector'
+import { ModeControls } from './ModeControls'
 import { UserList } from './UserList'
 
 export function Header(props: { users: IUser[] }) {
@@ -11,7 +11,7 @@ export function Header(props: { users: IUser[] }) {
   return (
     <header className="absolute w-full p-2 z-10">
       <div className="flex justify-between m-2 py-2 px-1 bg-slate-300 rounded-xl h-12 text-white items-center drop-shadow-lg">
-        <CameraSelector />
+        <ModeControls />
         <div>
           <button
             type="button"

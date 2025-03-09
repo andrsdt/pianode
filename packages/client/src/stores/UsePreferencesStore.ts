@@ -1,10 +1,17 @@
 import type { SetState } from 'zustand'
 import create from 'zustand'
+import { persist } from 'zustand/middleware'
 // import { devtools } from 'zustand/middleware'
 
 export interface PreferencesState {
   camera: string
   setCamera: (camera: string) => void
+
+  cameraZoom: number
+  setCameraZoom: (zoom: number) => void
+
+  appMode: 'camera' | 'piano'
+  setAppMode: (mode: 'camera' | 'piano') => void
 
   showTrails: boolean
   setShowTrails: (showTrails: boolean) => void
@@ -17,19 +24,27 @@ export interface PreferencesState {
 }
 
 export const usePreferencesStore = create(
-  // devtools(
-  (set: SetState<PreferencesState>) => ({
-    camera: 'tilted',
-    setCamera: (camera: string) => set(() => ({ camera })),
+  persist(
+    // devtools(
+    (set: SetState<PreferencesState>) => ({
+      camera: 'tilted',
+      setCamera: (camera: string) => set(() => ({ camera })),
 
-    showTrails: true,
-    setShowTrails: (showTrails: boolean) => set(() => ({ showTrails })),
+      cameraZoom: 1,
+      setCameraZoom: (cameraZoom: number) => set(() => ({ cameraZoom })),
 
-    colorizeKeys: true,
-    setColorizeKeys: (colorizeKeys: boolean) => set(() => ({ colorizeKeys })),
+      appMode: 'piano' as const,
+      setAppMode: (appMode: 'camera' | 'piano') => set(() => ({ appMode })),
 
-    pianoVelocities: 1,
-    setPianoVelocities: (pianoVelocities: number) => set(() => ({ pianoVelocities })),
-  }),
-  // ),
+      showTrails: true,
+      setShowTrails: (showTrails: boolean) => set(() => ({ showTrails })),
+
+      colorizeKeys: true,
+      setColorizeKeys: (colorizeKeys: boolean) => set(() => ({ colorizeKeys })),
+
+      pianoVelocities: 1,
+      setPianoVelocities: (pianoVelocities: number) => set(() => ({ pianoVelocities })),
+    }),
+    // ),
+  ),
 )
