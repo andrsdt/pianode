@@ -26,14 +26,14 @@ export interface PreferencesState {
 export const usePreferencesStore = create(
   persist(
     // devtools(
-    (set: SetState<PreferencesState>) => ({
+    (set: SetState<PreferencesState>): PreferencesState => ({
       camera: 'tilted',
       setCamera: (camera: string) => set(() => ({ camera })),
 
       cameraZoom: 1,
       setCameraZoom: (cameraZoom: number) => set(() => ({ cameraZoom })),
 
-      appMode: 'piano' as const,
+      appMode: 'piano',
       setAppMode: (appMode: 'camera' | 'piano') => set(() => ({ appMode })),
 
       showTrails: true,
